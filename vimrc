@@ -108,6 +108,9 @@ let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
 nnoremap <silent> <leader>gg :call pymode#rope#goto_definition()<CR>
 
+" NerdTree
+let NERDTreeIgnore=['\.pyc$']
+
 " Powerline
 " let g:Powerline_colorscheme = 'solarized256'
 let g:Powerline_symbols = 'fancy'
