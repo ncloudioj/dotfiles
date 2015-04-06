@@ -64,8 +64,8 @@ inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
 inoremap jj <Esc>
 nnoremap <space> :
-" open a new file
-map <leader>fn :enew<CR>
+" Speedup the C-like curly bracket inserts
+imap <C-c> <CR><Esc>O
 " speedup the buffer navigation
 noremap ;; <Esc>:bp<CR>
 noremap '' <Esc>:bn<CR>
