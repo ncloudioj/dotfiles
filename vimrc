@@ -1,9 +1,33 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-" enable the pathogen
-call pathogen#infect()
-call pathogen#helptags()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'mileszs/ack.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tomasr/molokai'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'wting/rust.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'SirVer/ultisnips'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'fatih/vim-go'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+
+call vundle#end()
+filetype plugin indent on
 
 set showcmd		    " Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -53,6 +77,8 @@ let g:solarized_termcolors=256
 color jellybeans  " wombat256
 set cursorline
 set t_Co=256
+set foldmethod=indent
+set nofoldenable
 
 let mapleader = ","
 nnoremap Y y$
@@ -95,19 +121,6 @@ let python_highlight_all = 1
 let Tlist_Use_Right_Window=1
 let Tlist_File_Fole_Auto_Close=1
 
-" python-mod
-" enable/disable python folding
-let g:pymode_options = 0
-let g:pymode_folding = 1
-let g:pymode_rope = 0
-let g:pymode_lint = 0
-let g:pymode_lint_write = 0
-let g:pymode_link_checker="pyflakes,pep8"
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-nnoremap <silent> <leader>gg :call pymode#rope#goto_definition()<CR>
-
 " NerdTree
 let NERDTreeIgnore=['\.pyc$']
 
@@ -125,10 +138,9 @@ let g:syntastic_c_compiler_options = ' -std=c99'
 let g:syntastic_cpp_include_dirs = ['../include', 'include', '../Include', 'Include']
 let g:syntastic_cpp_compiler_options = '-std=c++11'
 " let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler = 'g++-mp-4.8'
 
 " YouCompleteMe
-nnoremap <silent> <leader>dd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <silent> <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_show_diagnostics_ui = 0
@@ -162,6 +174,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_theme='jellybeans'
+let g:airline_section_y=''
 
 " Move line up and down
 nnoremap <silent> <C-S-d> :m .+1<CR>==
