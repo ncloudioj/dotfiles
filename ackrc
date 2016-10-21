@@ -2,3 +2,4 @@
 --ignore-dir=htmlcov
 --ignore-dir=.idea
 --ignore-dir=.ropeproject
+--ignore-dir=node_modules
