@@ -44,6 +44,8 @@ Plugin 'qpkorr/vim-bufkill'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-repeat'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'phleet/vim-mercenary'
 
 call vundle#end()
 filetype plugin indent on
@@ -134,6 +136,8 @@ nnoremap <leader>fe /\<<C-R><C-W>\>
 nnoremap <leader>rr :%s/<C-R><C-W>/
 " avoid leaking search result to the terminal
 " set t_ti= t_te=
+" remove trailing spaces
+nnoremap <leader>ts :%s/\s\+$//e<CR>
 
 " navigate windows
 map <C-h> <C-W>h
@@ -202,6 +206,17 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(pyc|o|so)$',
     \ 'dir': '\v[\/]\.(git|hg)$|node_modules',
     \ }
+" Boost CtrlP if The Silver Searcher is available
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 " NerdCommenter
 let NERDSpaceDelims = 1
@@ -263,6 +278,13 @@ nmap s <Plug>(easymotion-overwin-f)
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
+" rust.vim
+let g:rustfmt_autosave = 1
+
+" Vim-instant-markdown
+let g:instant_markdown_autostart = 0
+nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
 
 syntax on
 filetype plugin indent on
