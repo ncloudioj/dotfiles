@@ -1,53 +1,54 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/Vundle.vim'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+Plug 'mileszs/ack.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'tomasr/molokai'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'rust-lang/rust.vim'
+Plug 'majutsushi/tagbar'
+Plug 'SirVer/ultisnips'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'fatih/vim-go'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'hdima/python-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'klen/python-mode'
+Plug 'Valloric/MatchTagAlways'
+Plug 'mxw/vim-jsx'
+Plug 'vim-scripts/a.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'qpkorr/vim-bufkill'
+Plug 'ryanoasis/vim-devicons'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-repeat'
+Plug 'suan/vim-instant-markdown'
+Plug 'phleet/vim-mercenary'
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'neomake/neomake'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'mileszs/ack.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tomasr/molokai'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'rust-lang/rust.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'SirVer/ultisnips'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'fatih/vim-go'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'honza/vim-snippets'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'hdima/python-syntax'
-Plugin 'pangloss/vim-javascript'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'klen/python-mode'
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'mxw/vim-jsx'
-Plugin 'vim-scripts/a.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'qpkorr/vim-bufkill'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-repeat'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'phleet/vim-mercenary'
-
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 
 set showcmd		    " Show (partial) command in status line.
@@ -86,6 +87,7 @@ au BufRead,BufNewFile Makefile* set noexpandtab
 au BufRead,BufNewFile *.snippets, *.tsv set noexpandtab
 au BufRead,BufNewFile *.c,*.h,*.rb,*.erb,*.R,*.erl,*.go set textwidth=79
 au Filetype javascript setlocal ts=2 sts=2 sw=2
+au Filetype cpp,idl setlocal ts=2 sts=2 sw=2
 
 " enable matchit
 if !exists('g:loaded_matchit')
@@ -109,8 +111,9 @@ set t_ut=y
 let mapleader = ","
 nnoremap Y y$
 " in the visual model, yank the selection to the '*' register
-vnoremap <leader>yy "+y
-noremap <leader>pp "+p
+set clipboard=unnamed
+vnoremap <leader>yy "*y
+noremap <leader>pp "*p
 " Bash, Emacs bindings
 inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
@@ -129,15 +132,15 @@ let g:ackprg = 'ag --nogroup --column'
 nnoremap <leader>ft :Ack! 
 nnoremap <leader>ff :Ack! <C-R><C-W><CR>
 " find current term in a sepcified directory
-nnoremap <leader>fd :Ack! <C-R><C-W>
+nnoremap <leader>fd :Ack! <C-R><C-W> 
 " find the exact term
 nnoremap <leader>fe /\<<C-R><C-W>\>
 " replace current term
 nnoremap <leader>rr :%s/<C-R><C-W>/
 " avoid leaking search result to the terminal
 " set t_ti= t_te=
-" remove trailing spaces
-nnoremap <leader>ts :%s/\s\+$//e<CR>
+" trim trailing spaces
+nnoremap <silent> <leader>ts :%s/\s\+$//e<CR>
 
 " navigate windows
 map <C-h> <C-W>h
@@ -201,22 +204,30 @@ let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 " Don't reuse window created by other plugins
 let g:ctrlp_reuse_window = ''
 nnoremap <leader>ll :CtrlP .<CR>
-set wildignore+=*/tmp/*,*/build/*,*/*-env/*
+let g:ctrlp_clear_cache_on_exit = 0
+set wildignore+=*/tmp/*,*/build/*,*/*-env/*,*/obj-ff/*,*/obj-ff-dbg/*
 let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(pyc|o|so)$',
-    \ 'dir': '\v[\/]\.(git|hg)$|node_modules',
+    \ 'dir': '\v[\/]\.(git|hg)$|node_modules|obj-ff-dbg',
     \ }
 " Boost CtrlP if The Silver Searcher is available
-if executable('ag')
+if executable('rg')
+  " Let's try ripgrep
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  " set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+" For Mozilla-Central Places
+nnoremap <leader>mm :CtrlP toolkit/components/places/<CR>
 
 " NerdCommenter
 let NERDSpaceDelims = 1
@@ -267,7 +278,7 @@ let g:webdevicons_enable_ctrlp = 1
 
 " vim-jsx
 " Allow JSX in normal JS files"
-let g:jsx_ext_required = 0 
+let g:jsx_ext_required = 0
 
 " EasyMotion
 " Disable default mappings
@@ -285,6 +296,19 @@ let g:rustfmt_autosave = 1
 " Vim-instant-markdown
 let g:instant_markdown_autostart = 0
 nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
+
+" Vim-fzf
+map bb :Buffers<CR>
+
+" Alchemist
+let g:alchemist_tag_disable = 1
+
+" vim-gutentages
+let g:gutentags_cache_dir = '~/.tags_cache'
+
+" neomake
+autocmd! BufWritePost * Neomake
+let g:neomake_elixir_enabled_makers = ['mix', 'credo']
 
 syntax on
 filetype plugin indent on
