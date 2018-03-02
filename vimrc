@@ -47,6 +47,8 @@ Plug 'slashmili/alchemist.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'Yggdroot/indentLine'
+Plug 'racer-rust/vim-racer'
+Plug 'mattn/webapi-vim'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -293,6 +295,7 @@ map <Leader>k <Plug>(easymotion-k)
 
 " rust.vim
 let g:rustfmt_autosave = 1
+let g:rust_clip_command = 'pbcopy'
 
 " Vim-instant-markdown
 let g:instant_markdown_autostart = 0
@@ -310,6 +313,14 @@ let g:gutentags_cache_dir = '~/.tags_cache'
 " neomake
 autocmd! BufWritePost * Neomake
 let g:neomake_elixir_enabled_makers = ['mix', 'credo']
+
+" vim-racer for rust
+set hidden
+let g:racer_cmd = "~/.cargo/bin/racer"
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " gotags
 let g:tagbar_type_go = {
