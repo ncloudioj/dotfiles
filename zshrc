@@ -31,7 +31,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump brew osx git go)
+plugins=(autojump brew osx git go cargo docker hub nan)
 source $ZSH/oh-my-zsh.sh
 
 # keep more history
@@ -43,3 +43,18 @@ compinit
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 export EDITOR=vim
+
+function RKT {
+    echo -e '\xF0\x9F\x9A\x80\xE2\x9B\x85 '
+}
+PROMPT='%{$fg[cyan]%}%1~%{$reset_color%}%{$fg[red]%}|%{$reset_color%}$(git_prompt_info)$(RKT)%{$fg[cyan]%}%{$reset_color%}'
+
+alias git=hub
+
+# rustup
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smartcase --glob "!.git/*" --glob "!.hg/*"'
+export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
