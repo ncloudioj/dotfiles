@@ -31,7 +31,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump brew osx git go cargo docker hub nan)
+plugins=(autojump brew osx git go cargo docker hub emoji nan)
 source $ZSH/oh-my-zsh.sh
 
 # keep more history
@@ -44,10 +44,10 @@ compinit
 
 export EDITOR=vim
 
-function RKT {
-    echo -e '\xF0\x9F\x9A\x80\xE2\x9B\x85 '
+function EMOJI {
+    echo -e $(random_emoji animals)$(random_emoji fruits) 
 }
-PROMPT='%{$fg[cyan]%}%1~%{$reset_color%}%{$fg[red]%}|%{$reset_color%}$(git_prompt_info)$(RKT)%{$fg[cyan]%}%{$reset_color%}'
+PROMPT='%{$fg[cyan]%}%1~%{$reset_color%}%{$fg[red]%}|%{$reset_color%}$(git_prompt_info)$(EMOJI) %{$fg[cyan]%}%{$reset_color%}'
 
 alias git=hub
 
