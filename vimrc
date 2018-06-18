@@ -49,6 +49,9 @@ Plug 'neomake/neomake'
 Plug 'Yggdroot/indentLine'
 Plug 'racer-rust/vim-racer'
 Plug 'mattn/webapi-vim'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'Chiel92/vim-autoformat'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -100,7 +103,8 @@ endif
 " map <F4> tp TlistToggle
 map <F4> :TagbarToggle<CR>
 map <F3> :NERDTreeToggle<CR>
-set pastetoggle=<F5>
+map <F5> :Autoformat<CR>
+set pastetoggle=<F6>
 
 " Enhance command-line completion
 set wildmenu
@@ -236,7 +240,8 @@ nnoremap <leader>mm :CtrlP toolkit/components/places/<CR>
 let NERDSpaceDelims = 1
 let NERDRemoveExtraSpaces = 0
 let g:NERDCustomDelimiters = {
-    \ 'c': { 'left': '/* ', 'right': '*/', 'leftAlt': '//', 'rightAlt': '//' }
+    \ 'c': { 'left': '/* ', 'right': '*/', 'leftAlt': '//', 'rightAlt': '//' },
+    \ 'rust': { 'left': '///', 'leftAlt': '//!' }
     \ }
 
 " vim-airline
@@ -301,6 +306,10 @@ let g:rust_clip_command = 'pbcopy'
 let g:instant_markdown_autostart = 0
 nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
 
+" vim-markdown
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+
 " Vim-fzf
 map bb :Buffers<CR>
 
@@ -321,6 +330,16 @@ au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
+let g:racer_experimental_completer = 1
+
+" completearguments
+" let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+" inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 
 " gotags
 let g:tagbar_type_go = {
