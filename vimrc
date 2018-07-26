@@ -1,6 +1,10 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+if has('python3')
+  silent! python3 1
+endif
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
@@ -52,6 +56,7 @@ Plug 'mattn/webapi-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'Konfekt/FastFold'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -199,6 +204,7 @@ nnoremap <silent> <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_show_diagnostics_ui = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
 nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>
 nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>
 
@@ -241,7 +247,7 @@ let NERDSpaceDelims = 1
 let NERDRemoveExtraSpaces = 0
 let g:NERDCustomDelimiters = {
     \ 'c': { 'left': '/* ', 'right': '*/', 'leftAlt': '//', 'rightAlt': '//' },
-    \ 'rust': { 'left': '///', 'leftAlt': '//!' }
+    \ 'rust': { 'left': '//', 'leftAlt': '///' }
     \ }
 
 " vim-airline
@@ -299,8 +305,9 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
 " rust.vim
-let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 0
 let g:rust_clip_command = 'pbcopy'
+let g:rust_fold = 1
 
 " Vim-instant-markdown
 let g:instant_markdown_autostart = 0
@@ -384,6 +391,14 @@ let g:tagbar_type_rust = {
         \'i:impls,trait implementations',
     \ ]
 \ }
+
+" FastFold
+let g:markdown_folding = 1
+let g:vimsyn_folding = 'af'
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:rust_fold = 1
+let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
 
 syntax on
 filetype plugin indent on
