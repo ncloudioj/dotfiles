@@ -1,9 +1,9 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-if has('python3')
-  silent! python3 1
-endif
+" if has('python3')
+  " silent! python3 1
+" endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -14,7 +14,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'tomasr/molokai'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+" Plug 'scrooloose/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
@@ -49,7 +50,6 @@ Plug 'phleet/vim-mercenary'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'neomake/neomake'
 Plug 'Yggdroot/indentLine'
 Plug 'racer-rust/vim-racer'
 Plug 'mattn/webapi-vim'
@@ -57,6 +57,7 @@ Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
+Plug 'romainl/vim-qf'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -140,7 +141,8 @@ noremap '' <Esc>:bn<CR>
 xnoremap <  <gv
 xnoremap >  >gv
 " Ack
-let g:ackprg = 'ag --nogroup --column'
+" let g:ackprg = 'ag --path-to-ignore ~/.agignore --nogroup --column'
+let g:ackprg = 'rg --no-heading --with-filename --column'
 nnoremap <leader>ft :Ack! 
 nnoremap <leader>ff :Ack! <C-R><C-W><CR>
 " find current term in a sepcified directory
@@ -189,15 +191,23 @@ nnoremap <silent> <leader>gg :call pymode#rope#goto_definition()<CR>
 let g:Powerline_symbols = 'fancy'
 
 " Syntastic
-let g:syntastic_python_flake8_args = '--ignore=E123,E251,E501'
-let g:syntastic_c_include_dirs = ['../include', 'include', '../Include', 'Include']
-let g:syntastic_c_compiler_options = ' -std=c99'
-let g:syntastic_cpp_include_dirs = ['../include', 'include', '../Include', 'Include']
-let g:syntastic_cpp_compiler_options = '-std=c++11'
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" let g:syntastic_python_flake8_args = '--ignore=E123,E251,E501'
+" let g:syntastic_c_include_dirs = ['../include', 'include', '../Include', 'Include']
+" let g:syntastic_c_compiler_options = ' -std=c99'
+" let g:syntastic_cpp_include_dirs = ['../include', 'include', '../Include', 'Include']
+" let g:syntastic_cpp_compiler_options = '-std=c++11'
+" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 " let g:syntastic_cpp_compiler = 'clang++'
+
+" Ale
+let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:airline#extensions#ale#enabled = 1
 
 " YouCompleteMe
 nnoremap <silent> <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -263,6 +273,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s.'
 let g:airline_theme='jellybeans'
 let g:airline_section_y=''
+let g:airline#extensions#ale#enabled = 1
 
 " Move line up and down
 nnoremap <silent> <C-S-d> :m .+1<CR>==
@@ -325,10 +336,6 @@ let g:alchemist_tag_disable = 1
 
 " vim-gutentages
 let g:gutentags_cache_dir = '~/.tags_cache'
-
-" neomake
-autocmd! BufWritePost * Neomake
-let g:neomake_elixir_enabled_makers = ['mix', 'credo']
 
 " vim-racer for rust
 set hidden
@@ -399,6 +406,10 @@ let g:javaScript_fold = 1
 let g:sh_fold_enabled= 7
 let g:rust_fold = 1
 let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
+
+" vim-qf
+nmap qa <Plug>(qf_qf_toggle)
+nmap qq <Plug>(qf_loc_toggle)
 
 syntax on
 filetype plugin indent on
