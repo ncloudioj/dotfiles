@@ -1,0 +1,10 @@
+build
+htmlcov
+.idea
+.ropeproject
+node_modules
+tags
+activity-stream.bundle.*
+obj-ff/
+objdir-frontend/
+

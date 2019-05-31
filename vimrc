@@ -58,6 +58,7 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'romainl/vim-qf'
+Plug 'masukomi/vim-markdown-folding'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -327,6 +328,8 @@ nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
 " vim-markdown
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+let g:markdown_enable_folding = 1
+let g:markdown_folding_level = 3
 
 " Vim-fzf
 map bb :Buffers<CR>
@@ -385,18 +388,39 @@ let g:tagbar_type_go = {
 \ }
 
 " rusttags
+let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 let g:tagbar_type_rust = {
-    \ 'ctagstype' : 'rust',
-    \ 'kinds' : [
-        \'T:types,type definitions',
-        \'f:functions,function definitions',
-        \'g:enum,enumeration names',
-        \'s:structure names',
-        \'m:modules,module names',
-        \'c:consts,static constants',
-        \'t:traits',
-        \'i:impls,trait implementations',
-    \ ]
+  \ 'ctagsbin' : '/usr/local/bin/ctags',
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+      \ 'n:modules',
+      \ 's:structures:1',
+      \ 'i:interfaces',
+      \ 'c:implementations',
+      \ 'f:functions:1',
+      \ 'g:enumerations:1',
+      \ 't:type aliases:1:0',
+      \ 'v:constants:1:0',
+      \ 'M:macros:1',
+      \ 'm:fields:1:0',
+      \ 'e:enum variants:1:0',
+      \ 'P:methods:1',
+  \ ],
+  \ 'sro': '::',
+  \ 'kind2scope' : {
+      \ 'n': 'module',
+      \ 's': 'struct',
+      \ 'i': 'interface',
+      \ 'c': 'implementation',
+      \ 'f': 'function',
+      \ 'g': 'enum',
+      \ 't': 'typedef',
+      \ 'v': 'variable',
+      \ 'M': 'macro',
+      \ 'm': 'field',
+      \ 'e': 'enumerator',
+      \ 'P': 'method',
+  \ },
 \ }
 
 " FastFold
