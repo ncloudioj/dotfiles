@@ -59,6 +59,8 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'romainl/vim-qf'
 Plug 'masukomi/vim-markdown-folding'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -221,6 +223,8 @@ nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>
 
 " UltiSnippet
 let g:UltiSnipsExpandTrigger = '<leader>se'
+let g:UltiSnipsJumpForwardTrigger = '<TAB>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
 let g:UltiSnipsSnippetsDir = ['~/.vim/bundle/vim-snippets']
 let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 
@@ -348,6 +352,7 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
 
 " completearguments
 " let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
@@ -430,6 +435,17 @@ let g:javaScript_fold = 1
 let g:sh_fold_enabled= 7
 let g:rust_fold = 1
 let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
+
+" Vim-lsp
+" Rust
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
 
 " vim-qf
 nmap qa <Plug>(qf_qf_toggle)
