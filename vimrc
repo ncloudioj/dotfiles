@@ -58,7 +58,6 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'romainl/vim-qf'
-Plug 'masukomi/vim-markdown-folding'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -330,10 +329,9 @@ let g:instant_markdown_autostart = 0
 nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
 
 " vim-markdown
-let g:vim_markdown_conceal = 0
+" let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_folding_disabled = 1
-let g:markdown_enable_folding = 1
-let g:markdown_folding_level = 3
 
 " Vim-fzf
 map bb :Buffers<CR>
