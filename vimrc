@@ -15,7 +15,6 @@ Plug 'tomasr/molokai'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
-" Plug 'scrooloose/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
@@ -50,7 +49,6 @@ Plug 'phleet/vim-mercenary'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'Yggdroot/indentLine'
 Plug 'racer-rust/vim-racer'
 Plug 'mattn/webapi-vim'
 Plug 'mtscout6/syntastic-local-eslint.vim'
@@ -280,8 +278,8 @@ let g:airline_section_y=''
 let g:airline#extensions#ale#enabled = 1
 
 " Move line up and down
-nnoremap <silent> <C-S-d> :m .+1<CR>==
-nnoremap <silent> <C-S-u> :m .-2<CR>==
+" nnoremap <silent> <C-S-d> :m .+1<CR>==
+" nnoremap <silent> <C-S-u> :m .-2<CR>==
 inoremap <silent> <C-S-d> <Esc>:m .+1<CR>==gi
 inoremap <silent> <C-S-u> <Esc>:m .-2<CR>==gi
 vnoremap <silent> <C-S-d> :m '>+1<CR>gv=gv
@@ -330,8 +328,8 @@ nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
 
 " vim-markdown
 " let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_conceal_code_blocks = 0
+" let g:vim_markdown_folding_disabled = 1
 
 " Vim-fzf
 map bb :Buffers<CR>
@@ -448,6 +446,9 @@ endif
 " vim-qf
 nmap qa <Plug>(qf_qf_toggle)
 nmap qq <Plug>(qf_loc_toggle)
+
+" vim-indent-guids
+let g:indent_guides_enable_on_vim_startup = 1
 
 syntax on
 filetype plugin indent on
