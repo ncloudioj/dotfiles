@@ -57,7 +57,6 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'romainl/vim-qf'
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -339,6 +338,7 @@ let g:alchemist_tag_disable = 1
 
 " vim-gutentages
 let g:gutentags_cache_dir = '~/.tags_cache'
+let g:gutentags_ctags_exclude = ['*/node_modules/*', '*/mozilla-central/*']
 
 " vim-racer for rust
 set hidden
@@ -431,17 +431,6 @@ let g:javaScript_fold = 1
 let g:sh_fold_enabled= 7
 let g:rust_fold = 1
 let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R','m','M','i','n','N']
-
-" Vim-lsp
-" Rust
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
-        \ })
-endif
 
 " vim-qf
 nmap qa <Plug>(qf_qf_toggle)
