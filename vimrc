@@ -33,8 +33,9 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'nanotech/jellybeans.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'klen/python-mode'
+" Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Valloric/MatchTagAlways'
 Plug 'mxw/vim-jsx'
 Plug 'vim-scripts/a.vim'
@@ -57,6 +58,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'romainl/vim-qf'
 Plug 'prabirshrestha/async.vim'
+Plug 'morhetz/gruvbox'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -98,7 +100,8 @@ au BufRead,BufNewFile Makefile* set noexpandtab
 au BufRead,BufNewFile *.snippets, *.tsv set noexpandtab
 au BufRead,BufNewFile *.c,*.h,*.rb,*.erb,*.R,*.erl,*.go set textwidth=79
 au Filetype javascript setlocal ts=2 sts=2 sw=2
-au Filetype cpp,idl setlocal ts=2 sts=2 sw=2
+au Filetype json setlocal ts=2 sts=2 sw=2
+au Filetype cpp,idl,yaml setlocal ts=2 sts=2 sw=2
 
 " enable matchit
 if !exists('g:loaded_matchit')
@@ -114,7 +117,8 @@ set pastetoggle=<F6>
 " Enhance command-line completion
 set wildmenu
 set background=dark
-color jellybeans
+" color jellybeans
+color gruvbox
 set nocursorline
 set t_Co=256
 " Clearing the background color
@@ -149,7 +153,10 @@ nnoremap <leader>fd :Ack! <C-R><C-W>
 " find the exact term
 nnoremap <leader>fe /\<<C-R><C-W>\>
 " replace current term
-nnoremap <leader>rr :%s/<C-R><C-W>/
+nnoremap <leader>fr :%s/<C-R><C-W>/
+" search in m-c/newtab
+nnoremap <leader>fm :Ack! <C-R><C-W> browser/components/newtab/<CR>
+nnoremap <leader>fn :Ack!  browser/components/newtab/<S-Left><S-Left>
 " avoid leaking search result to the terminal
 " set t_ti= t_te=
 " trim trailing spaces
@@ -172,17 +179,27 @@ let Tlist_File_Fole_Auto_Close=1
 let NERDTreeIgnore=['\.pyc$', '\.o$']
 
 " Python-Mode
-let g:pymode = 0
+let g:pymode = 1
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_slow_sync = 1
+let g:pymode_syntax_highlight_self = g:pymode_syntax_all
+let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
+let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
+let g:pymode_syntax_highlight_async_await = g:pymode_syntax_all
+let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
+let g:pymode_syntax_builtin_types = g:pymode_syntax_all
+let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
+let g:pymode_syntax_docstrings = g:pymode_syntax_all
 let g:pymode_options = 0
-let g:pymode_folding = 1
-let g:pymode_rope = 0
+let g:pymode_folding = 0
+let g:pymode_rope = 1
 let g:pymode_lint = 0
 let g:pymode_lint_write = 0
 let g:pymode_link_checker="pyflakes,pep8"
 let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
-let g:pymode_syntax_slow_sync = 0
 nnoremap <silent> <leader>gg :call pymode#rope#goto_definition()<CR>
 
 " Powerline
@@ -227,7 +244,7 @@ let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 " CtrlP
 " Don't reuse window created by other plugins
 let g:ctrlp_reuse_window = ''
-nnoremap <leader>ll :CtrlP .<CR>
+nnoremap <leader>ll :CtrlP browser/components/newtab/<CR>
 let g:ctrlp_clear_cache_on_exit = 0
 set wildignore+=*/tmp/*,*/build/*,*/*-env/*,*/obj-ff/*,*/obj-ff-dbg/*
 let g:ctrlp_custom_ignore = {
@@ -272,7 +289,7 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s.'
-let g:airline_theme='jellybeans'
+let g:airline_theme='gruvbox'
 let g:airline_section_y=''
 let g:airline#extensions#ale#enabled = 1
 
@@ -438,6 +455,9 @@ nmap qq <Plug>(qf_loc_toggle)
 
 " vim-indent-guids
 let g:indent_guides_enable_on_vim_startup = 1
+
+" gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 
 syntax on
 filetype plugin indent on
