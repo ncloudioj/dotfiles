@@ -1,15 +1,10 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-" if has('python3')
-  " silent! python3 1
-" endif
-
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mileszs/ack.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tomasr/molokai'
 Plug 'scrooloose/nerdcommenter'
@@ -17,7 +12,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
 Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
-Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
@@ -27,18 +21,14 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'hdima/python-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'nanotech/jellybeans.vim'
 Plug 'christoomey/vim-tmux-navigator'
-" Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Valloric/MatchTagAlways'
 Plug 'mxw/vim-jsx'
-Plug 'vim-scripts/a.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'qpkorr/vim-bufkill'
@@ -46,19 +36,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat'
 Plug 'suan/vim-instant-markdown'
-Plug 'phleet/vim-mercenary'
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'racer-rust/vim-racer'
 Plug 'mattn/webapi-vim'
-Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'tenfyzhong/CompleteParameter.vim'
-Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'romainl/vim-qf'
 Plug 'prabirshrestha/async.vim'
 Plug 'morhetz/gruvbox'
+Plug 'puremourning/vimspector'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -108,11 +92,9 @@ if !exists('g:loaded_matchit')
   runtime macros/matchit.vim
 endif
 
-" map <F4> tp TlistToggle
-map <F4> :TagbarToggle<CR>
 map <F3> :NERDTreeToggle<CR>
-map <F5> :Autoformat<CR>
-set pastetoggle=<F6>
+map <F4> :TagbarToggle<CR>
+set pastetoggle=<F1>
 
 " Enhance command-line completion
 set wildmenu
@@ -168,107 +150,24 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
 
-" Open all features of python.vim
-let python_highlight_all = 1
-
 " Tlist internal variables.
 let Tlist_Use_Right_Window=1
 let Tlist_File_Fole_Auto_Close=1
 
 " NerdTree
 let NERDTreeIgnore=['\.pyc$', '\.o$']
-
-" Python-Mode
-let g:pymode = 1
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_slow_sync = 1
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_async_await = g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
-let g:pymode_syntax_builtin_types = g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
-let g:pymode_syntax_docstrings = g:pymode_syntax_all
-let g:pymode_options = 0
-let g:pymode_folding = 0
-let g:pymode_rope = 1
-let g:pymode_lint = 0
-let g:pymode_lint_write = 0
-let g:pymode_link_checker="pyflakes,pep8"
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-nnoremap <silent> <leader>gg :call pymode#rope#goto_definition()<CR>
-
-" Powerline
-" let g:Powerline_colorscheme = 'solarized256'
-let g:Powerline_symbols = 'fancy'
-
-" Syntastic
-" let g:syntastic_python_flake8_args = '--ignore=E123,E251,E501'
-" let g:syntastic_c_include_dirs = ['../include', 'include', '../Include', 'Include']
-" let g:syntastic_c_compiler_options = ' -std=c99'
-" let g:syntastic_cpp_include_dirs = ['../include', 'include', '../Include', 'Include']
-" let g:syntastic_cpp_compiler_options = '-std=c++11'
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-" let g:syntastic_cpp_compiler = 'clang++'
+let g:NERDTreeRespectWildIgnore = 1
 
 " Ale
 let g:ale_open_list = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-let g:airline#extensions#ale#enabled = 1
-
-" YouCompleteMe
-nnoremap <silent> <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>
-nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>
-
-" UltiSnippet
-let g:UltiSnipsExpandTrigger = '<leader>se'
-let g:UltiSnipsJumpForwardTrigger = '<TAB>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
-let g:UltiSnipsSnippetsDir = ['~/.vim/bundle/vim-snippets']
-let g:UltiSnipsSnippetDirectories = ['UltiSnips']
-
-" CtrlP
-" Don't reuse window created by other plugins
-let g:ctrlp_reuse_window = ''
-nnoremap <leader>ll :CtrlP browser/components/newtab/<CR>
-let g:ctrlp_clear_cache_on_exit = 0
-set wildignore+=*/tmp/*,*/build/*,*/*-env/*,*/obj-ff/*,*/obj-ff-dbg/*
-let g:ctrlp_custom_ignore = {
-    \ 'file': '\v\.(pyc|o|so)$',
-    \ 'dir': '\v[\/]\.(git|hg)$|node_modules|obj-ff-dbg',
+let g:ale_linters = {
+    \ 'jsx': ['stylelint', 'eslint'],
+    \ 'javascript': ['prettier', 'eslint'],
     \ }
-" Boost CtrlP if The Silver Searcher is available
-if executable('rg')
-  " Let's try ripgrep
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-
-  " Use ag over grep
-  " set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-" For Mozilla-Central Places
-nnoremap <leader>mm :CtrlP toolkit/components/places/<CR>
+let g:airline#extensions#ale#enabled = 1
 
 " NerdCommenter
 let NERDSpaceDelims = 1
@@ -308,10 +207,6 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 
-" vim-indent-guides
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-
 " vim-jsx
 let g:jsx_ext_required = 0
 
@@ -343,38 +238,17 @@ let g:instant_markdown_autostart = 0
 nnoremap <silent> <Leader>md :InstantMarkdownPreview<CR>
 
 " vim-markdown
-" let g:vim_markdown_conceal = 0
-" let g:vim_markdown_conceal_code_blocks = 0
-" let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_folding_disabled = 1
 
 " Vim-fzf
-map bb :Buffers<CR>
-
-" Alchemist
-let g:alchemist_tag_disable = 1
+nmap <silent> <C-b> :Buffers<CR>
+nmap <silent> <C-p> :Files<CR>
 
 " vim-gutentages
 let g:gutentags_cache_dir = '~/.tags_cache'
 let g:gutentags_ctags_exclude = ['*/node_modules/*', '*/mozilla-central/*']
-
-" vim-racer for rust
-set hidden
-let g:racer_cmd = "~/.cargo/bin/racer"
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
-
-" completearguments
-" let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-" inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 
 " gotags
 let g:tagbar_type_go = {
@@ -453,11 +327,170 @@ let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R',
 nmap qa <Plug>(qf_qf_toggle)
 nmap qq <Plug>(qf_loc_toggle)
 
-" vim-indent-guids
-let g:indent_guides_enable_on_vim_startup = 1
-
 " gruvbox
 let g:gruvbox_contrast_dark = 'hard'
+
+" vimspector
+" let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+nmap <F5> <Plug>VimspectorContinue
+nmap <F6> <Plug>VimspectorStop
+nmap <F7> <Plug>VimspectorRestart
+nmap <F8> :VimspectorReset<CR>
+nmap <F9> <Plug>VimspectorToggleBreakpoint
+nmap <F10> <Plug>VimspectorStepOver
+nmap <F11> <Plug>VimspectorStepInto
+nmap <F12> <Plug>VimspectorStepOut
+
+" coc.nvim
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" use `:Prettier` to lint the file
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Highlight jsonc comments
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" end of coc.nvim
+
+" coc-snippets
+
+" Use <C-l> for trigger snippet expand.
+imap <C-S-l> <Plug>(coc-snippets-expand)
+" Use <C-S-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<C-S-j>'
+" Use <C-S-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<C-S-k>'
+
+" end of coc-snippets
+
 
 syntax on
 filetype plugin indent on
