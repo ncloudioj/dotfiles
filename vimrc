@@ -43,7 +43,10 @@ Plug 'romainl/vim-qf'
 Plug 'prabirshrestha/async.vim'
 Plug 'morhetz/gruvbox'
 Plug 'puremourning/vimspector'
+" Mac OS X
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+" Linux
+" Plug '~/.fzf' | Plug 'junegunn/fzf.vim'
 
 call plug#end()
 filetype plugin indent on
