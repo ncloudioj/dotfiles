@@ -16,7 +16,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': 'GoUpdateBinaries'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
@@ -89,6 +89,7 @@ au BufRead,BufNewFile *.c,*.h,*.rb,*.erb,*.R,*.erl,*.go set textwidth=79
 au Filetype javascript setlocal ts=2 sts=2 sw=2
 au Filetype json setlocal ts=2 sts=2 sw=2
 au Filetype cpp,idl,yaml setlocal ts=2 sts=2 sw=2
+autocmd Filetype json let g:indentLine_enabled = 0
 
 " enable matchit
 if !exists('g:loaded_matchit')
@@ -120,6 +121,8 @@ inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
 inoremap jj <Esc>
 nnoremap <space> :
+" nnoremap j jzz
+" nnoremap k kzz
 " Speedup the C-like curly bracket inserts
 imap <C-c> <CR><Esc>O
 " speedup the buffer navigation
@@ -246,7 +249,7 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_folding_disabled = 1
 
 " Vim-fzf
-nmap <silent> <C-b> :Buffers<CR>
+nmap <silent> bb :Buffers<CR>
 nmap <silent> <C-p> :Files<CR>
 
 " vim-gutentages
@@ -442,8 +445,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -493,7 +496,6 @@ let g:coc_snippet_next = '<C-S-j>'
 let g:coc_snippet_prev = '<C-S-k>'
 
 " end of coc-snippets
-
 
 syntax on
 filetype plugin indent on
