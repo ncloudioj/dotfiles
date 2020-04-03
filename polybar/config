@@ -1,0 +1,460 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = ${xrdb:color0}
+background-alt = ${xrdb:color8}
+foreground = ${xrdb:color15}
+foreground-alt = ${xrdb:color7:#444}
+black = ${xrdb:color0}
+dark-grey = ${xrdb:color8}
+dark-red = ${xrdb:color1}
+red = ${xrdb:color9}
+dark-green = ${xrdb:color2}
+green = ${xrdb:color10}
+dark-yellow = ${xrdb:color3}
+yellow = ${xrdb:color11}
+dark-blue = ${xrdb:color4}
+blue = ${xrdb:color12}
+dark-magenta = ${xrdb:color5}
+magenta = ${xrdb:color13}
+dark-cyan = ${xrdb:color6}
+cyan = ${xrdb:color14}
+light-grey = ${xrdb:color7}
+white = ${xrdb:color15}
+secondary = ${xrdb:color7:#e60053}
+alert = ${xrdb:color1:#bd2c40}
+
+[bar/bottom]
+monitor = ${env:MONITOR:}
+width = 100%
+height = 18
+offset-y = 0
+bottom = true
+
+fixed-center = true
+
+font-0 = FuraCode Nerd Font Mono:style=medium:size=10;3
+font-1 = FuraCode Nerd Font Mono:style=italic:size=10;3
+font-2 = FuraCode Nerd Font Mono:style=medium:size=12;3
+
+border-size = 4
+border-color = ${colors.background}
+line-size = 0
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+background = ${colors.background}
+foreground = ${colors.background}
+
+modules-left = i3
+modules-center =
+modules-right =  memory cpu battery temperature temperature2
+
+#### Modules ####
+[module/i3]
+type = internal/i3
+
+format = <label-state> <label-mode>
+index-sort=true
+wrapping-scroll=false
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.black}
+label-mode-background = ${colors.blue}
+
+label-focused = "%{T3}%{T-} %icon% %{T3}%{T-}"
+label-focused-background = ${colors.yellow}
+label-focused-foreground = ${colors.background}
+label-focused-padding = 0
+
+label-unfocused = "%{T3}%{T-}%{T3}%{T-}"
+label-unfocused-padding = 0
+label-unfocused-background = ${colors.blue}
+label-unfocused-foreground = ${colors.background}
+
+label-urgent = "%{T3}%{T-}%icon%%{T3}%{T-}"
+label-urgent-padding = 0
+label-urgent-background = ${colors.magenta}
+label-urgent-foreground = ${colors.background}
+
+label-visible = "%{T3}%{T-}%icon%%{T3}%{T-}"
+label-visible-padding = 0
+label-visible-foreground = ${colors.background}
+label-visible-background = ${colors.blue}
+
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;﬏
+ws-icon-3 = 4;ﴬ
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;9
+ws-icon-9 = 10;阮
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "%{T3}%{T-}  "
+format-underline = ${colors.cyan}
+label = %percentage:2%% %{T3}%{T-}
+format-background = ${colors.blue}
+format-foreground = ${colors.background}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "%{T3}%{T-}  "
+format-underline = ${colors.dark-green}
+label = %percentage_used%% %{T3}%{T-}
+
+format-background = ${colors.dark-cyan}
+format-foreground = ${colors.background}
+
+[bar/top]
+monitor = ${env:MONITOR:}
+width = 100%
+height = 18
+offset-y = 0
+
+fixed-center = true
+
+font-0 = FuraCode Nerd Font Mono:style=medium:size=12;3
+font-1 = FuraCode Nerd Font Mono:style=italic:size=12;3
+font-2 = FuraCode Nerd Font Mono:style=medium:size=16;3
+
+border-size = 8
+border-color = ${colors.background}
+line-size = 0
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+background = ${colors.background}
+foreground = ${colors.background}
+
+modules-left =  power-menu audio
+modules-right = xkeyboard wlan date
+
+#### Modules ####
+[module/power-menu]
+type = custom/script
+exec = echo "%{T3}%{T-}%{T3}%{T-}"
+interval = 1
+click-left = exec $HOME/.config/rofi/power_menu
+format-background = ${colors.dark-red}
+format-foreground = ${colors.background}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = "%{T3}%{T- }  "
+format-prefix-foreground = ${colors.background}
+format-prefix-background = ${colors.cyan}
+
+label-layout = "%layout% %{T3}%{T-}"
+label-layout-foreground = ${colors.background}
+label-layout-background = ${colors.cyan}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.cyan}
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = ${colors.dark-red}
+format-connected-background = ${colors.dark-magenta}
+label-connected-foreground = ${colors.background}
+label-connected = %essid% %{T3}%{T-}
+format-connected-prefix = "%{T3}%{T- }"
+format-connected-prefix-foreground = ${colors.background}
+
+format-disconnected =
+;format-disconnected =
+;format-disconnected-underline = ${colors.dark-red}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 睊
+ramp-signal-1 = 直
+ramp-signal-2 = 直
+ramp-signal-3 = 直
+ramp-signal-4 = 直
+ramp-signal-foreground = ${colors.background}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %d-%m-%Y"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = %{T3}%{T- } 
+format-prefix-foreground = ${colors.background}
+format-prefix-background = ${colors.dark-yellow}
+label = %date% %time% %{T3}%{T-}
+label-background = ${colors.dark-yellow}
+label-foreground = ${colors.background}
+
+[module/audio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+format-volume = <label-volume>
+format-muted = <label-muted>
+label-volume = "%{T3}%{T-}  %percentage%%"
+label-volume-background = ${colors.dark-blue}
+label-volume-foreground = ${colors.background}
+label-muted = "%{T3}%{T-} 婢 %{T3}%{T-}"
+label-muted-foreground = ${colors.dark-magenta}
+
+; Only applies if <ramp-volume> is used
+; ramp-volume-0 = 
+; ramp-volume-1 = 墳
+; ramp-volume-2 = 
+; ramp-volume-background = ${colors.dark-blue}
+; ramp-volume-foreground = ${colors.background}
+
+; Right and Middle click (unreleased)
+click-right = pavucontrol &
+
+; [module/audio]
+; type = internal/pulseaudio
+; sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+; format-volume = " <label-volume><bar-volume>"
+; label-volume = "%{T3}%{T-} 墳 "
+; format-background = ${colors.dark-green}
+; format-foreground = ${colors.background}
+; label-volume-background = ${colors.dark-green}
+; label-volume-foreground = ${colors.background}
+; format-volume-suffix = %{T3}%{T-}
+; format-volume-suffix-background = ${colors.dark-green}
+; format-volume-suffix-foreground = ${colors.background}
+
+; format-muted= "<label-muted>"
+; label-muted = "%{T3}%{T-} 婢 %{T3}%{T-}"
+; label-muted-background = ${colors.dark-green}
+; label-muted-foreground = ${colors.background}
+
+; bar-volume-width = 10
+; bar-volume-foreground = ${colors.background}
+; bar-volume-background = ${colors.dark-green}
+; bar-volume-gradient = false
+
+; bar-volume-indicator = 
+; bar-volume-indicator-foreground = ${colors.background-alt}
+; bar-volume-indicator-background = ${colors.dark-green}
+
+; bar-volume-fill = 
+; bar-volume-fill-foreground = ${colors.background}
+; bar-volume-fill-background = ${colors.dark-green}
+
+; bar-volume-empty = 
+; bar-volume-empty-foreground = ${colors.background}
+; bar-volume-empty-background = ${colors.dark-green}
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/temperature]
+type = internal/temperature
+
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+
+; Base temperature for where to start the ramp (in degrees celsius)
+; Default: 0
+base-temperature = 20
+
+; Threshold temperature to display warning label (in degrees celsius)
+; Default: 80
+warn-temperature = 100
+; Available tags:
+;   <label> (default)
+;   <ramp>
+format = <ramp><label>
+label-foreground = ${colors.background}
+label-background = ${colors.dark-green}
+format-foreground = ${colors.dark-green}
+; format-background = ${colors.dark-green}
+format-underline = #c72581
+
+; Available tags:
+;   <label-warn> (default)
+;   <ramp>
+format-warn = <ramp> <label-warn>
+
+; Available tokens:
+;   %temperature% (deprecated)
+;   %temperature-c%   (default, temperature in °C)
+;   %temperature-f%   (temperature in °F)
+label = %temperature-c%
+
+; Available tokens:
+;   %temperature% (deprecated)
+;   %temperature-c%   (default, temperature in °C)
+;   %temperature-f%   (temperature in °F)
+label-warn = %temperature-c%
+label-warn-foreground = #c7254f
+
+; Requires the <ramp> tag
+; The icon selection will range from `base-temperature` to `warn-temperature`,
+; temperatures above `warn-temperature` will use the last icon
+; and temperatures below `base-temperature` will use `ramp-0`
+ramp-0 = %{T3}%{T-}%
+ramp-1 = %{T3}%{T-}%
+ramp-2 = %{T3}%{T-}%
+ramp-3 = %{T3}%{T-}%
+ramp-4 = %{T3}%{T-}%
+ramp-background = ${colors.dark-green}
+ramp-foreground = ${colors.background}
+
+[module/temperature2]
+type = custom/script
+exec = ~/.config/polybar/scripts/temperature.sh
+interval = 2
+format-padding = 1
+format-foreground = ${colors.background}
+format-background = ${colors.dark-green}
+format-underline = #C1B93E
+format-prefix-foreground = #C1B93E
+label = %output:0:20:%
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = AC
+poll-interval = 5
+
+format-charging = "%{T3}%{T-} <ramp-capacity> <label-charging> %{T3}%{T-}"
+label-charging = %percentage%%
+format-charging-foreground = ${colors.foreground}
+format-charging-background = ${colors.dark-blue}
+
+format-discharging = "%{T3}%{T-} <ramp-capacity> <label-discharging> %{T3}%{T-}"
+label-discharging = %percentage%%
+format-discharging-foreground = ${colors.foreground}
+format-discharging-background = ${colors.dark-blue}
+
+format-full-prefix = 
+format-full-prefix-foreground = #a3c725
+format-full-underline = #a3c725
+format-full-foreground = ${colors.foreground}
+format-full-background = ${colors.background}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini
