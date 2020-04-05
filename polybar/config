@@ -161,7 +161,7 @@ modules-right = xkeyboard wlan date
 type = custom/script
 exec = echo "%{T3}%{T-}%{T3}%{T-}"
 interval = 1
-click-left = exec $HOME/.config/rofi/power_menu
+click-left = exec $HOME/.config/rofi/power_menu.sh
 format-background = ${colors.dark-red}
 format-foreground = ${colors.background}
 
