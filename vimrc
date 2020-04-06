@@ -16,7 +16,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go', { 'do': 'GoUpdateBinaries'}
+Plug 'fatih/vim-go'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
@@ -121,8 +121,6 @@ inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
 inoremap jj <Esc>
 nnoremap <space> :
-" nnoremap j jzz
-" nnoremap k kzz
 " Speedup the C-like curly bracket inserts
 imap <C-c> <CR><Esc>O
 " speedup the buffer navigation
@@ -155,6 +153,12 @@ map <C-h> <C-W>h
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
+
+" quick move in insert mode
+imap <C-h> <C-o>h
+imap <C-j> <C-o>j
+imap <C-k> <C-o>k
+imap <C-l> <C-o>l
 
 " Tlist internal variables.
 let Tlist_Use_Right_Window=1
@@ -489,7 +493,7 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 " coc-snippets
 
 " Use <C-l> for trigger snippet expand.
-imap <C-S-l> <Plug>(coc-snippets-expand)
+imap <leader>l <Plug>(coc-snippets-expand)
 " Use <C-S-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<C-S-j>'
 " Use <C-S-k> for jump to previous placeholder, it's default of coc.nvim
