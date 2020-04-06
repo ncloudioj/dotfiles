@@ -493,7 +493,7 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 " coc-snippets
 
 " Use <C-l> for trigger snippet expand.
-imap <leader>l <Plug>(coc-snippets-expand)
+imap <leader>se <Plug>(coc-snippets-expand)
 " Use <C-S-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<C-S-j>'
 " Use <C-S-k> for jump to previous placeholder, it's default of coc.nvim
