@@ -336,6 +336,8 @@ let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C','r','R',
 " vim-qf
 nmap qa <Plug>(qf_qf_toggle)
 nmap qq <Plug>(qf_loc_toggle)
+let g:qf_mapping_ack_style = 1
+let g:qf_shorten_path = 0
 
 " gruvbox
 let g:gruvbox_contrast_dark = 'hard'
