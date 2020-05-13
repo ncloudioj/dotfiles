@@ -16,7 +16,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': 'GoUpdateBinaries'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
@@ -121,6 +121,8 @@ inoremap <C-a> <C-o>I
 inoremap <C-e> <C-o>A
 inoremap jj <Esc>
 nnoremap <space> :
+" nnoremap j jzz
+" nnoremap k kzz
 " Speedup the C-like curly bracket inserts
 imap <C-c> <CR><Esc>O
 " speedup the buffer navigation
@@ -169,13 +171,18 @@ let NERDTreeIgnore=['\.pyc$', '\.o$']
 let g:NERDTreeRespectWildIgnore = 1
 
 " Ale
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
 let g:ale_linters = {
     \ 'jsx': ['stylelint', 'eslint'],
     \ 'javascript': ['prettier', 'eslint'],
+    \ 'python': ['pylint', 'flake8']
+    \ }
+let g:ale_fixers = {
+    \ 'python': ['yapf', 'autopep8']
     \ }
 let g:airline#extensions#ale#enabled = 1
 
