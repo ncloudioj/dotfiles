@@ -51,6 +51,9 @@ PROMPT='%{$fg[cyan]%}%1~%{$reset_color%}%{$fg[red]%}|%{$reset_color%}$(git_promp
 
 alias git=hub
 
+#gpg
+export GPG_TTY=$(tty)
+
 # rustup
 export PATH="$HOME/.cargo/bin:$PATH"
 
