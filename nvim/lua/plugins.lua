@@ -2,11 +2,13 @@
 
 local use = require("packer").use
 require("packer").startup(function()
-  use "wbthomason/packer.nvim"
   use "L3MON4D3/LuaSnip"
+  use "Raimondi/delimitMate"
   use "airblade/vim-gitgutter"
   use "christoomey/vim-tmux-navigator"
   use "easymotion/vim-easymotion"
+  use "florentc/vim-tla"
+  use "hrsh7th/nvim-compe"
   use "joshdick/onedark.vim"
   use "junegunn/fzf"
   use "junegunn/fzf.vim"
@@ -14,9 +16,7 @@ require("packer").startup(function()
   use "lukas-reineke/indent-blankline.nvim"
   use "majutsushi/tagbar"
   use "morhetz/gruvbox"
-  use "hrsh7th/nvim-compe"
   use "neovim/nvim-lspconfig"
-  use "Raimondi/delimitMate"
   use "plasticboy/vim-markdown"
   use "ryanoasis/vim-devicons"
   use "scrooloose/nerdcommenter"
@@ -24,14 +24,24 @@ require("packer").startup(function()
   use "suan/vim-instant-markdown"
   use "terryma/vim-multiple-cursors"
   use "tpope/vim-commentary"
+  use "tpope/vim-endwise"
   use "tpope/vim-fugitive"
   use "vim-airline/vim-airline"
   use "vim-airline/vim-airline-themes"
   use "w0rp/ale"
+  use "wbthomason/packer.nvim"
   use { "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
   use { "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } }
-  use "tpope/vim-endwise"
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 end)
+
+-- Automatically run :PackerCompile whenever plugins.lua is updated
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
 local opt_silent = { silent = true }
 local opt_silent_noremap = { silent = true, noremap = true }
@@ -130,6 +140,21 @@ require("gitsigns").setup {
     delete = { hl = "GitGutterDelete", text = "_" },
     topdelete = { hl = "GitGutterDelete", text = "‾" },
     changedelete = { hl = "GitGutterChange", text = "~" },
+  },
+}
+
+-- TreeSitter
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
   },
 }
 
