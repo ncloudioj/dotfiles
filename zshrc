@@ -61,3 +61,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*" --glob "!.hg/*"'
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
+
+alias luamake=/home/nan/Projects/github/lua-language-server/3rd/luamake/luamake
