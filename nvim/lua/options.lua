@@ -82,7 +82,32 @@ vim.g.maplocalleader = " "
 -- Special handling on various Filetypes
 vim.api.nvim_exec(
   [[
-    autocmd BufRead,BufNewFile Makefile* set noexpandtab
+    augroup MakeFileAutoCmd
+      autocmd!
+      autocmd BufRead,BufNewFile Makefile* set noexpandtab
+    augroup END
+  ]],
+  false
+)
+
+-- Treat Mozilla jsm as JS
+vim.api.nvim_exec(
+  [[
+    augroup JSMAutoCmd
+      autocmd!
+      autocmd BufNewFile,BufRead *.jsm set ft=javascript
+    augroup END
+  ]],
+  false
+)
+
+-- Highlight on yank
+vim.api.nvim_exec(
+  [[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
   ]],
   false
 )

@@ -18,9 +18,10 @@ require("packer").startup(function()
   use "morhetz/gruvbox"
   use "neovim/nvim-lspconfig"
   use "plasticboy/vim-markdown"
+  use "preservim/nerdcommenter"
   use "ryanoasis/vim-devicons"
-  use "scrooloose/nerdcommenter"
   use "scrooloose/nerdtree"
+  use "simrat39/rust-tools.nvim"
   use "suan/vim-instant-markdown"
   use "terryma/vim-multiple-cursors"
   use "tpope/vim-commentary"
@@ -89,7 +90,7 @@ vim.api.nvim_exec(
     let g:ale_lint_on_enter = 0
     let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
     let g:ale_linters = { 'jsx': ['stylelint', 'eslint'], 'javascript': ['prettier', 'eslint'], 'python': ['pylint', 'flake8'], 'rust': ['analyzer'] }
-    let g:ale_fixers = { 'python': ['yapf', 'autopep8'] }
+    let g:ale_fixers = { 'python': ['yapf', 'autopep8'], 'javascript': ['prettier', 'eslint'] }
     let g:airline#extensions#ale#enabled = 1
   ]],
   false
@@ -355,3 +356,16 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
+
+-- Rust-tools
+require('rust-tools').setup({
+  tools = {
+      autoSetHints = true,
+      hover_with_actions = true,
+      inlay_hints = {
+          show_parameter_hints = false,
+          parameter_hints_prefix = "<- ",
+          other_hints_prefix = "=> ",
+      },
+  },
+})
