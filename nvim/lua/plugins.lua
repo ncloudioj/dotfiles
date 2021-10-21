@@ -202,7 +202,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Enable the following language servers
-local servers = { "clangd", "pyright", "tsserver" }
+local servers = { "clangd", "pyright", "tsserver", "rust_analyzer" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -273,6 +273,9 @@ require("lspconfig").sumneko_lua.setup {
     },
   },
 }
+
+-- LSP: tss
+require("lspconfig").tsserver.setup{}
 
 -- Nvim-compe
 vim.o.completeopt = "menuone,noselect"
