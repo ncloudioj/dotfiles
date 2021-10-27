@@ -169,9 +169,9 @@ local on_attach = function(_, bufnr)
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   local opts = { noremap = true, silent = true }
-  buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+  buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   -- buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -213,23 +213,58 @@ for _, lsp in ipairs(servers) do
 end
 
 -- LSP: Rust
-nvim_lsp.rust_analyzer.setup {
-  on_attach = on_attach,
-  settings = {
-    ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
+
+-- Commented out as they are set by rust-tools below
+-- nvim_lsp.rust_analyzer.setup {
+  -- settings = {
+    -- ["rust-analyzer"] = {
+      -- assist = {
+        -- importGranularity = "module",
+        -- importPrefix = "by_self",
+      -- },
+      -- cargo = {
+        -- loadOutDirsFromCheck = true,
+      -- },
+      -- procMacro = {
+        -- enable = true,
+      -- },
+    -- },
+  -- },
+-- }
+
+-- Rust-tools
+
+local opts = {
+  tools = {
+      autoSetHints = true,
+      hover_with_actions = true,
+      inlay_hints = {
+          show_parameter_hints = false,
+          parameter_hints_prefix = "<- ",
+          other_hints_prefix = "=> ",
       },
-      cargo = {
-        loadOutDirsFromCheck = true,
-      },
-      procMacro = {
-        enable = true,
+  },
+
+  server = {
+    on_attach = on_attach,
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importGranularity = "module",
+          importPrefix = "by_self",
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+        },
+        procMacro = {
+          enable = true,
+        },
       },
     },
   },
 }
+
+require('rust-tools').setup(opts)
 
 -- LSP: Lua
 local USER = vim.fn.expand "$USER"
@@ -250,7 +285,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require("lspconfig").sumneko_lua.setup {
+nvim_lsp.sumneko_lua.setup {
   cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
   settings = {
     Lua = {
@@ -277,7 +312,7 @@ require("lspconfig").sumneko_lua.setup {
 }
 
 -- LSP: tss
-require("lspconfig").tsserver.setup{}
+nvim_lsp.tsserver.setup {}
 
 -- Nvim-compe
 vim.o.completeopt = "menuone,noselect"
@@ -361,16 +396,3 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-
--- Rust-tools
-require('rust-tools').setup({
-  tools = {
-      autoSetHints = true,
-      hover_with_actions = true,
-      inlay_hints = {
-          show_parameter_hints = false,
-          parameter_hints_prefix = "<- ",
-          other_hints_prefix = "=> ",
-      },
-  },
-})
