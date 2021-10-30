@@ -12,7 +12,7 @@ vim.api.nvim_set_keymap("i", "jj", "<ESC>", opts)
 vim.api.nvim_set_keymap("n", ";;", "<ESC>:bp<CR>", opts)
 vim.api.nvim_set_keymap("n", [['']], "<ESC>:bn<CR>", opts)
 vim.api.nvim_set_keymap("n", "<F2>", [[:nohl<CR>]], opts)
-vim.api.nvim_set_keymap("", "<F3>", [[<cmd>NERDTreeToggle<CR>]], opts)
+vim.api.nvim_set_keymap("", "<F3>", [[<cmd>NvimTreeToggle<CR>]], opts)
 vim.api.nvim_set_keymap("", "<F4>", [[<cmd>TagbarToggle<CR>]], opts)
 
 -- Navigate windows

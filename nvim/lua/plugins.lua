@@ -5,27 +5,33 @@ require("packer").startup(function()
   use "L3MON4D3/LuaSnip"
   use "Raimondi/delimitMate"
   use "airblade/vim-gitgutter"
+  use "akinsho/bufferline.nvim"
   use "christoomey/vim-tmux-navigator"
   use "easymotion/vim-easymotion"
   use "florentc/vim-tla"
-  use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-cmdline"
+  use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-path"
   use "hrsh7th/nvim-cmp"
   use "joshdick/onedark.vim"
   use "junegunn/fzf"
   use "junegunn/fzf.vim"
+  use "kyazdani42/nvim-web-devicons"
+  use "lewis6991/gitsigns.nvim"
   use "ludovicchabant/vim-gutentags"
   use "lukas-reineke/indent-blankline.nvim"
   use "majutsushi/tagbar"
   use "morhetz/gruvbox"
   use "neovim/nvim-lspconfig"
+  use "nvim-lua/plenary.nvim"
+  use "nvim-lua/popup.nvim"
+  use "nvim-telescope/telescope.nvim"
+  use "onsails/lspkind-nvim"
   use "plasticboy/vim-markdown"
   use "preservim/nerdcommenter"
   use "ryanoasis/vim-devicons"
   use "saadparwaiz1/cmp_luasnip"
-  use "scrooloose/nerdtree"
   use "simrat39/rust-tools.nvim"
   use "suan/vim-instant-markdown"
   use "terryma/vim-multiple-cursors"
@@ -36,8 +42,7 @@ require("packer").startup(function()
   use "vim-airline/vim-airline-themes"
   use "w0rp/ale"
   use "wbthomason/packer.nvim"
-  use { "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
-  use { "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } }
+  use { "kyazdani42/nvim-tree.lua", config = function() require"nvim-tree".setup {} end }
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 end)
 
@@ -63,7 +68,7 @@ vim.api.nvim_exec(
     let g:airline_detect_modified = 1
     let g:airline_detect_paste = 1
     let g:airline#extensions#whitespace#enabled = 1
-    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#tabline#show_buffers = 1
     let g:airline#extensions#tabline#show_tab_type = 1
     let g:airline#extensions#tabline#fnamemod = ':t'
@@ -164,6 +169,123 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+-- Bufferline
+vim.o.termguicolors = true
+require("bufferline").setup {
+  options = {
+    numbers = "none",
+    offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+    buffer_close_icon = "",
+    modified_icon = "",
+    -- close_icon = "%@NvChad_bufferline_quitvim@%X",
+    close_icon = "",
+    show_close_icon = true,
+    left_trunc_marker = "",
+    right_trunc_marker = "",
+    max_name_length = 14,
+    max_prefix_length = 13,
+    tab_size = 20,
+    show_tab_indicators = true,
+    enforce_regular_tabs = false,
+    view = "multiwindow",
+    show_buffer_close_icons = true,
+    separator_style = "thin",
+    always_show_bufferline = true,
+    diagnostics = "nvim_lsp", -- "or nvim_lsp"
+    custom_filter = function(buf_number)
+       -- Func to filter out our managed/persistent split terms
+       local present_type, type = pcall(function()
+          return vim.api.nvim_buf_get_var(buf_number, "term_type")
+       end)
+
+       if present_type then
+          if type == "vert" then
+             return false
+          elseif type == "hori" then
+             return false
+          else
+             return true
+          end
+       else
+          return true
+       end
+    end,
+   },
+}
+
+-- Nvim-tree.lua
+local g = vim.g
+g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
+g.nvim_tree_git_hl = 1
+g.nvim_tree_gitignore = 0
+g.nvim_tree_highlight_opened_files = 0
+g.nvim_tree_indent_markers = 1
+g.nvim_tree_quit_on_open = 0 -- closes tree when file's opened
+g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
+--
+g.nvim_tree_show_icons = {
+   folders = 1,
+   -- folder_arrows= 1
+   files = 1,
+   git = 1,
+}
+
+g.nvim_tree_icons = {
+   default = "",
+   symlink = "",
+   git = {
+      deleted = "",
+      ignored = "◌",
+      renamed = "➜",
+      staged = "✓",
+      unmerged = "",
+      unstaged = "✗",
+      untracked = "★",
+   },
+   folder = {
+      -- disable indent_markers option to get arrows working or if you want both arrows and indent then just add the arrow icons in front            ofthe default and opened folders below!
+      -- arrow_open = "",
+      -- arrow_closed = "",
+      default = "",
+      empty = "", -- 
+      empty_open = "",
+      open = "",
+      symlink = "",
+      symlink_open = "",
+   },
+}
+
+require"nvim-tree".setup {
+   diagnostics = {
+      enable = false,
+      icons = {
+         hint = "",
+         info = "",
+         warning = "",
+         error = "",
+      },
+   },
+   filters = {
+      dotfiles = false,
+   },
+   disable_netrw = true,
+   hijack_netrw = true,
+   ignore_ft_on_setup = { "dashboard" },
+   auto_close = false,
+   open_on_tab = false,
+   hijack_cursor = true,
+   update_cwd = true,
+   update_focused_file = {
+      enable = true,
+      update_cwd = false,
+   },
+   view = {
+      allow_resize = true,
+      side = "left",
+      width = 25,
+   },
+}
+
 -- nvim-cmp
 
 -- Add additional capabilities supported by nvim-cmp
@@ -180,6 +302,8 @@ end
 
 -- luasnip setup
 local luasnip = require 'luasnip'
+-- lspkind-nvim
+local lspkind = require 'lspkind'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -230,7 +354,26 @@ cmp.setup {
     { name = 'luasnip' },
   }, {
     { name = 'path' }
-  })
+  }),
+  formatting = {
+    format = function(entry, vim_item)
+      -- load lspkind icons
+      vim_item.kind = string.format(
+        "%s %s",
+        lspkind.symbol_map[vim_item.kind],
+        vim_item.kind
+      )
+
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[Lua]",
+        buffer = "[BUF]",
+        lausnip = "[SNP]",
+      })[entry.source.name]
+
+      return vim_item
+    end,
+  },
 }
 
 -- Use buffer source for `/`.
@@ -241,13 +384,13 @@ cmp.setup.cmdline('/', {
 })
 
 -- Use cmdline & path source for ':'.
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
+-- cmp.setup.cmdline(':', {
+  -- sources = cmp.config.sources({
+    -- { name = 'path' }
+  -- }, {
+    -- { name = 'cmdline' }
+  -- })
+-- })
 
 -- LSP settings
 local nvim_lsp = require "lspconfig"
