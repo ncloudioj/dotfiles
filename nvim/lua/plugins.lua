@@ -189,7 +189,7 @@ require("bufferline").setup {
     enforce_regular_tabs = false,
     view = "multiwindow",
     show_buffer_close_icons = true,
-    separator_style = "thin",
+    separator_style = "slant",
     always_show_bufferline = true,
     diagnostics = "nvim_lsp", -- "or nvim_lsp"
     custom_filter = function(buf_number)
