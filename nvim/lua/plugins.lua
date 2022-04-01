@@ -19,6 +19,7 @@ require("packer").startup(function()
   use "junegunn/fzf.vim"
   use "kyazdani42/nvim-web-devicons"
   use "lewis6991/gitsigns.nvim"
+  use "lervag/vimtex"
   use "ludovicchabant/vim-gutentags"
   use "lukas-reineke/indent-blankline.nvim"
   use "majutsushi/tagbar"
@@ -30,6 +31,7 @@ require("packer").startup(function()
   use "onsails/lspkind-nvim"
   use "plasticboy/vim-markdown"
   use "preservim/nerdcommenter"
+  use "rafamadriz/friendly-snippets"
   use "ryanoasis/vim-devicons"
   use "saadparwaiz1/cmp_luasnip"
   use "simrat39/rust-tools.nvim"
@@ -38,12 +40,14 @@ require("packer").startup(function()
   use "tpope/vim-commentary"
   use "tpope/vim-endwise"
   use "tpope/vim-fugitive"
+  use "tpope/vim-surround"
   use "vim-airline/vim-airline"
   use "vim-airline/vim-airline-themes"
   use "w0rp/ale"
   use "wbthomason/packer.nvim"
   use { "kyazdani42/nvim-tree.lua", config = function() require"nvim-tree".setup {} end }
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 end)
 
 -- Automatically run :PackerCompile whenever plugins.lua is updated
@@ -99,7 +103,7 @@ vim.api.nvim_exec(
     let g:ale_lint_on_insert_leave = 0
     let g:ale_lint_on_enter = 0
     let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-    let g:ale_linters = { 'jsx': ['stylelint', 'eslint'], 'javascript': ['prettier', 'eslint'], 'python': ['pylint', 'flake8'], 'rust': ['analyzer'] }
+    let g:ale_linters = { 'jsx': ['stylelint', 'eslint'], 'javascript': ['prettier', 'eslint'], 'python': ['pylint', 'flake8'], 'rust': ['analyzer'], 'haskell': ['hlint'] }
     let g:ale_fixers = { 'python': ['yapf', 'autopep8'], 'javascript': ['prettier', 'eslint'] }
     let g:airline#extensions#ale#enabled = 1
   ]],
@@ -137,6 +141,8 @@ vim.api.nvim_exec(
 )
 
 -- Telescope
+require('telescope').setup{}
+require('telescope').load_extension('fzf')
 vim.api.nvim_set_keymap("n", "<leader>tf", [[<cmd>Telescope find_files<CR>]], opt_silent_noremap)
 vim.api.nvim_set_keymap("n", "<leader>tg", [[<cmd>Telescope live_grep<CR>]], opt_silent_noremap)
 vim.api.nvim_set_keymap("n", "<leader>tb", [[<cmd>Telescope buffers<CR>]], opt_silent_noremap)
@@ -217,10 +223,8 @@ require("bufferline").setup {
 local g = vim.g
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
 g.nvim_tree_git_hl = 1
-g.nvim_tree_gitignore = 0
 g.nvim_tree_highlight_opened_files = 0
 g.nvim_tree_indent_markers = 1
-g.nvim_tree_quit_on_open = 0 -- closes tree when file's opened
 g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
 --
 g.nvim_tree_show_icons = {
@@ -267,6 +271,7 @@ require"nvim-tree".setup {
    },
    filters = {
       dotfiles = false,
+      custom = {},
    },
    disable_netrw = true,
    hijack_netrw = true,
@@ -283,6 +288,11 @@ require"nvim-tree".setup {
       allow_resize = true,
       side = "left",
       width = 25,
+   },
+   actions = {
+     open_file = {
+       quit_on_open = false,
+     },
    },
 }
 
@@ -302,6 +312,8 @@ end
 
 -- luasnip setup
 local luasnip = require 'luasnip'
+-- snippets for luasnip
+require("luasnip.loaders.from_vscode").lazy_load()
 -- lspkind-nvim
 local lspkind = require 'lspkind'
 
@@ -348,10 +360,9 @@ cmp.setup {
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
   }, {
     { name = 'buffer' },
-  }, {
-    { name = 'luasnip' },
   }, {
     { name = 'path' }
   }),
@@ -368,7 +379,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         buffer = "[BUF]",
-        lausnip = "[SNP]",
+        luasnip = "[SNP]",
       })[entry.source.name]
 
       return vim_item
@@ -434,7 +445,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- Enable the following language servers
-local servers = { "clangd", "pyright", "tsserver", "rust_analyzer" }
+local servers = { "clangd", "pyright", "tsserver", "rust_analyzer", "hls", "texlab" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -541,3 +552,12 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
+
+-- LSP: Haskell
+-- nvim_lsp.hls.setup {
+  -- on_attach = on_attach,
+  -- root_dir = vim.loop.cwd,
+  -- settings = {
+    -- rootMarkers = {"./git/"}
+  -- }
+-- }
