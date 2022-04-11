@@ -103,8 +103,18 @@ vim.api.nvim_exec(
     let g:ale_lint_on_insert_leave = 0
     let g:ale_lint_on_enter = 0
     let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
-    let g:ale_linters = { 'jsx': ['stylelint', 'eslint'], 'javascript': ['prettier', 'eslint'], 'python': ['pylint', 'flake8'], 'rust': ['analyzer'], 'haskell': ['hlint'] }
-    let g:ale_fixers = { 'python': ['yapf', 'autopep8'], 'javascript': ['prettier', 'eslint'] }
+    let g:ale_linters = {
+      \  'jsx': ['stylelint', 'eslint'],
+      \  'javascript': ['prettier', 'eslint'],
+      \  'python': ['pylint', 'flake8'],
+      \  'rust': ['analyzer'],
+      \  'haskell': ['hlint'],
+      \  'sh': ['shellcheck'],
+      \ }
+    let g:ale_fixers = {
+      \  'python': ['yapf', 'autopep8'],
+      \  'javascript': ['prettier', 'eslint']
+      \ }
     let g:airline#extensions#ale#enabled = 1
   ]],
   false

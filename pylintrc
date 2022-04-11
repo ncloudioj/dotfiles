@@ -63,6 +63,7 @@ confidence=
 disable=print-statement,
         parameter-unpacking,
         unpacking-in-except,
+        unspecified-encoding,
         old-raise-syntax,
         backtick,
         long-suffix,
