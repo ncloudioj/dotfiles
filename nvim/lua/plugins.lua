@@ -7,6 +7,7 @@ require("packer").startup(function()
   use "airblade/vim-gitgutter"
   use "akinsho/bufferline.nvim"
   use "christoomey/vim-tmux-navigator"
+  use {'dracula/vim', as = 'dracula'}
   use "easymotion/vim-easymotion"
   use "florentc/vim-tla"
   use "hrsh7th/cmp-buffer"
@@ -78,7 +79,7 @@ vim.api.nvim_exec(
     let g:airline#extensions#tabline#fnamemod = ':t'
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#tabline#buffer_nr_format = '%s.'
-    let g:airline_theme='onedark'
+    let g:airline_theme='dracula'
     let g:airline_section_y=''
     let g:airline#extensions#ale#enabled = 1
   ]],
@@ -172,7 +173,7 @@ require("gitsigns").setup {
 
 -- TreeSitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
@@ -226,6 +227,7 @@ require("bufferline").setup {
           return true
        end
     end,
+    tree_indent_marks = 1,
    },
 }
 
@@ -234,7 +236,6 @@ local g = vim.g
 g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
 g.nvim_tree_git_hl = 1
 g.nvim_tree_highlight_opened_files = 0
-g.nvim_tree_indent_markers = 1
 g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
 --
 g.nvim_tree_show_icons = {
