@@ -31,7 +31,8 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump brew osx git golang cargo docker emoji)
+plugins=(autojump brew osx git golang mix cargo docker kubectl \
+  mercurial emoji virtualenv poetry zsh-syntax-highlighting zsh-autosuggestions nan)
 source $ZSH/oh-my-zsh.sh
 
 # keep more history
