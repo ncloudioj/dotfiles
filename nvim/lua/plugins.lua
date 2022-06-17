@@ -46,7 +46,12 @@ require("packer").startup(function()
   use "vim-airline/vim-airline-themes"
   use "w0rp/ale"
   use "wbthomason/packer.nvim"
-  use { "kyazdani42/nvim-tree.lua", config = function() require"nvim-tree".setup {} end }
+  use {
+    "kyazdani42/nvim-tree.lua",
+    requires = {
+      "kyazdani42/nvim-web-devicons"
+    },
+  }
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 end)
@@ -113,7 +118,7 @@ vim.api.nvim_exec(
       \  'sh': ['shellcheck'],
       \ }
     let g:ale_fixers = {
-      \  'python': ['yapf', 'autopep8'],
+      \  'python': ['yapf', 'autopep8', 'isort'],
       \  'javascript': ['prettier', 'eslint']
       \ }
     let g:airline#extensions#ale#enabled = 1
@@ -159,6 +164,7 @@ vim.api.nvim_set_keymap("n", "<leader>tg", [[<cmd>Telescope live_grep<CR>]], opt
 vim.api.nvim_set_keymap("n", "<leader>tb", [[<cmd>Telescope buffers<CR>]], opt_silent_noremap)
 vim.api.nvim_set_keymap("n", "<leader>th", [[<cmd>Telescope help_tags<CR>]], opt_silent_noremap)
 vim.api.nvim_set_keymap("n", "<leader>tt", [[<cmd>Telescope grep_string<CR>]], opt_silent_noremap)
+vim.api.nvim_set_keymap("n", "<leader>tr", [[<cmd>Telescope lsp_references<CR>]], opt_silent_noremap)
 
 -- Gitsigns
 require("gitsigns").setup {
@@ -173,7 +179,7 @@ require("gitsigns").setup {
 
 -- TreeSitter
 require('nvim-treesitter.configs').setup {
-  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "bash", "c", "haskell", "json", "latex", "lua", "python", "rust", "toml", "yaml" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
@@ -232,44 +238,6 @@ require("bufferline").setup {
 }
 
 -- Nvim-tree.lua
-local g = vim.g
-g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
-g.nvim_tree_git_hl = 1
-g.nvim_tree_highlight_opened_files = 0
-g.nvim_tree_root_folder_modifier = table.concat { ":t:gs?$?/..", string.rep(" ", 1000), "?:gs?^??" }
---
-g.nvim_tree_show_icons = {
-   folders = 1,
-   -- folder_arrows= 1
-   files = 1,
-   git = 1,
-}
-
-g.nvim_tree_icons = {
-   default = "",
-   symlink = "",
-   git = {
-      deleted = "",
-      ignored = "◌",
-      renamed = "➜",
-      staged = "✓",
-      unmerged = "",
-      unstaged = "✗",
-      untracked = "★",
-   },
-   folder = {
-      -- disable indent_markers option to get arrows working or if you want both arrows and indent then just add the arrow icons in front            ofthe default and opened folders below!
-      -- arrow_open = "",
-      -- arrow_closed = "",
-      default = "",
-      empty = "", -- 
-      empty_open = "",
-      open = "",
-      symlink = "",
-      symlink_open = "",
-   },
-}
-
 require"nvim-tree".setup {
    diagnostics = {
       enable = false,
@@ -287,7 +255,6 @@ require"nvim-tree".setup {
    disable_netrw = true,
    hijack_netrw = true,
    ignore_ft_on_setup = { "dashboard" },
-   auto_close = false,
    open_on_tab = false,
    hijack_cursor = true,
    update_cwd = true,
@@ -296,9 +263,50 @@ require"nvim-tree".setup {
       update_cwd = false,
    },
    view = {
-      allow_resize = true,
       side = "left",
-      width = 25,
+      width = 35,
+   },
+   renderer = {
+     highlight_git = true,
+     add_trailing = false,
+     highlight_opened_files = "none",
+     root_folder_modifier = ":~",
+     icons = {
+       webdev_colors = true,
+       git_placement = "before",
+       padding = " ",
+       symlink_arrow = " ➛ ",
+       show = {
+         file = true,
+         folder = true,
+         folder_arrow = true,
+         git = true,
+       },
+       glyphs = {
+         default = "",
+         symlink = "",
+         folder = {
+           arrow_closed = "",
+           arrow_open = "",
+           default = "",
+           open = "",
+           empty = "",
+           empty_open = "",
+           symlink = "",
+           symlink_open = "",
+         },
+         git = {
+           unstaged = "✗",
+           staged = "✓",
+           unmerged = "",
+           renamed = "➜",
+           untracked = "★",
+           deleted = "",
+           ignored = "◌",
+         },
+       },
+     },
+     special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
    },
    actions = {
      open_file = {
@@ -348,6 +356,8 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
+    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
