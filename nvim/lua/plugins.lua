@@ -21,10 +21,11 @@ require("packer").startup(function()
   use "kyazdani42/nvim-web-devicons"
   use "lewis6991/gitsigns.nvim"
   use "lervag/vimtex"
-  use "ludovicchabant/vim-gutentags"
+  -- use "ludovicchabant/vim-gutentags"
   use "lukas-reineke/indent-blankline.nvim"
-  use "majutsushi/tagbar"
+  -- use "majutsushi/tagbar"
   use "morhetz/gruvbox"
+  use "williamboman/nvim-lsp-installer"
   use "neovim/nvim-lspconfig"
   use "nvim-lua/plenary.nvim"
   use "nvim-lua/popup.nvim"
@@ -122,6 +123,28 @@ vim.api.nvim_exec(
       \  'javascript': ['prettier', 'eslint']
       \ }
     let g:airline#extensions#ale#enabled = 1
+  ]],
+  false
+)
+
+-- TexLive
+vim.api.nvim_exec(
+  [[
+    " Use Zathura as the VimTeX PDF viewer
+    let g:vimtex_view_method = 'zathura'
+    let g:vimtex_compiler_latexmk = {
+        \ 'build_dir' : '',
+        \ 'callback' : 1,
+        \ 'continuous' : 1,
+        \ 'executable' : 'latexmk',
+        \ 'hooks' : [],
+        \ 'options' : [
+        \   '-verbose',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=nonstopmode',
+        \ ],
+        \}
   ]],
   false
 )
@@ -423,6 +446,9 @@ cmp.setup.cmdline('/', {
     -- { name = 'cmdline' }
   -- })
 -- })
+
+-- nvim-lsp-installer
+require("nvim-lsp-installer").setup {}
 
 -- LSP settings
 local nvim_lsp = require "lspconfig"
