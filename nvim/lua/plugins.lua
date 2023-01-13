@@ -5,7 +5,6 @@ require("packer").startup(function()
   use "L3MON4D3/LuaSnip"
   use "Raimondi/delimitMate"
   use "airblade/vim-gitgutter"
-  use "akinsho/bufferline.nvim"
   use "christoomey/vim-tmux-navigator"
   use {'dracula/vim', as = 'dracula'}
   use "easymotion/vim-easymotion"
@@ -18,21 +17,17 @@ require("packer").startup(function()
   use "joshdick/onedark.vim"
   use "junegunn/fzf"
   use "junegunn/fzf.vim"
-  use "kyazdani42/nvim-web-devicons"
+  use "nvim-tree/nvim-web-devicons"
   use "lewis6991/gitsigns.nvim"
   use "lervag/vimtex"
-  -- use "ludovicchabant/vim-gutentags"
   use "lukas-reineke/indent-blankline.nvim"
-  -- use "majutsushi/tagbar"
   use "morhetz/gruvbox"
-  use "williamboman/nvim-lsp-installer"
-  use "neovim/nvim-lspconfig"
   use "nvim-lua/plenary.nvim"
   use "nvim-lua/popup.nvim"
-  use "nvim-telescope/telescope.nvim"
   use "onsails/lspkind-nvim"
-  use "plasticboy/vim-markdown"
+  use "preservim/vim-markdown"
   use "preservim/nerdcommenter"
+  use "RRethy/vim-illuminate"
   use "rafamadriz/friendly-snippets"
   use "ryanoasis/vim-devicons"
   use "saadparwaiz1/cmp_luasnip"
@@ -48,13 +43,24 @@ require("packer").startup(function()
   use "w0rp/ale"
   use "wbthomason/packer.nvim"
   use {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
+  }
+  use {
     "kyazdani42/nvim-tree.lua",
     requires = {
-      "kyazdani42/nvim-web-devicons"
+      "nvim-tree/nvim-web-devicons"
     },
   }
+  use { "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" }
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+  -- or                            , branch = '0.1.x',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
 end)
 
 -- Automatically run :PackerCompile whenever plugins.lua is updated
@@ -111,15 +117,16 @@ vim.api.nvim_exec(
     let g:ale_lint_on_enter = 0
     let g:ale_linter_aliases = {'jsx': ['css', 'javascript']}
     let g:ale_linters = {
+      \  'dockerfile': ['hadolint'],
       \  'jsx': ['stylelint', 'eslint'],
       \  'javascript': ['prettier', 'eslint'],
-      \  'python': ['pylint', 'flake8'],
+      \  'python': ['flake8', 'mypy'],
       \  'rust': ['analyzer'],
       \  'haskell': ['hlint'],
       \  'sh': ['shellcheck'],
       \ }
     let g:ale_fixers = {
-      \  'python': ['yapf', 'autopep8', 'isort'],
+      \  'python': ['black', 'autopep8', 'isort'],
       \  'javascript': ['prettier', 'eslint']
       \ }
     let g:airline#extensions#ale#enabled = 1
@@ -127,13 +134,13 @@ vim.api.nvim_exec(
   false
 )
 
--- TexLive
+-- VimTex
 vim.api.nvim_exec(
   [[
     " Use Zathura as the VimTeX PDF viewer
     let g:vimtex_view_method = 'zathura'
     let g:vimtex_compiler_latexmk = {
-        \ 'build_dir' : '',
+        \ 'build_dir' : 'outputs',
         \ 'callback' : 1,
         \ 'continuous' : 1,
         \ 'executable' : 'latexmk',
@@ -161,6 +168,14 @@ vim.api.nvim_exec(
   false
 )
 
+-- vim-markdown
+vim.api.nvim_exec(
+  [[
+    let g:vim_markdown_folding_disabled = 1
+  ]],
+  false
+)
+
 -- Vim-instant-markdown
 vim.api.nvim_exec(
   [[
@@ -180,7 +195,7 @@ vim.api.nvim_exec(
 )
 
 -- Telescope
-require('telescope').setup{}
+require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "book"} } }
 require('telescope').load_extension('fzf')
 vim.api.nvim_set_keymap("n", "<leader>tf", [[<cmd>Telescope find_files<CR>]], opt_silent_noremap)
 vim.api.nvim_set_keymap("n", "<leader>tg", [[<cmd>Telescope live_grep<CR>]], opt_silent_noremap)
@@ -222,15 +237,18 @@ require("bufferline").setup {
     numbers = "none",
     offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
     buffer_close_icon = "",
+    close_command = "bdelete! %d",
+    right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+    left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     modified_icon = "",
     -- close_icon = "%@NvChad_bufferline_quitvim@%X",
-    close_icon = "",
+    close_icon = "",
     show_close_icon = true,
     left_trunc_marker = "",
     right_trunc_marker = "",
-    max_name_length = 14,
-    max_prefix_length = 13,
-    tab_size = 20,
+    max_name_length = 18,
+    max_prefix_length = 15,
+    tab_size = 18,
     show_tab_indicators = true,
     enforce_regular_tabs = false,
     view = "multiwindow",
@@ -342,7 +360,7 @@ require"nvim-tree".setup {
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -447,94 +465,80 @@ cmp.setup.cmdline('/', {
   -- })
 -- })
 
--- nvim-lsp-installer
-require("nvim-lsp-installer").setup {}
+require("mason").setup()
+local mason_lspconfig = require("mason-lspconfig")
+mason_lspconfig.setup({
+  ensure_installed = {
+    "bashls", "clangd", "eslint", "gopls", "hls", "jsonls", "marksman",
+    "pyright", "rust_analyzer", "sumneko_lua", "terraformls", "texlab",
+    "tflint", "tsserver", "yamlls"
+  }
+})
+mason_lspconfig.setup_handlers({
+  function(server_name)
+    -- Skip rust_analyzer as we manually configure them.
+    -- Otherwise the following `setup()` would override our config.
+    if server_name ~= "rust_analyzer" then
+      require("lspconfig")[server_name].setup({
+        on_attach = function(client, bufnr)
+          require("settings/shared").on_attach(client, bufnr)
+          require("illuminate").on_attach(client)
+        end
+      })
+    end
+  end
+})
 
 -- LSP settings
 local nvim_lsp = require "lspconfig"
-local on_attach = function(_, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  local opts = { noremap = true, silent = true }
-  buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  -- buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-  buf_set_keymap("n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-  buf_set_keymap(
-    "n",
-    "<leader>wl",
-    "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-    opts
-  )
-  buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  buf_set_keymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  -- buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-  buf_set_keymap("n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-  buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-  buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-  buf_set_keymap("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-  buf_set_keymap(
-    "n",
-    "<leader>so",
-    "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>",
-    opts
-  )
-  buf_set_keymap('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-end
-
--- Enable the following language servers
-local servers = { "clangd", "pyright", "tsserver", "rust_analyzer", "hls", "texlab" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
-
--- LSP: Rust
-
--- Commented out as they are set by rust-tools below
--- nvim_lsp.rust_analyzer.setup {
-  -- settings = {
-    -- ["rust-analyzer"] = {
-      -- assist = {
-        -- importGranularity = "module",
-        -- importPrefix = "by_self",
-      -- },
-      -- cargo = {
-        -- loadOutDirsFromCheck = true,
-      -- },
-      -- procMacro = {
-        -- enable = true,
-      -- },
-    -- },
-  -- },
--- }
 
 -- Rust-tools
-
 local opts = {
   tools = {
       autoSetHints = true,
-      hover_with_actions = true,
       inlay_hints = {
-          show_parameter_hints = false,
-          parameter_hints_prefix = "<- ",
-          other_hints_prefix = "=> ",
+        -- automatically set inlay hints (type hints)
+        -- default: true
+        auto = true,
+
+        -- Only show inlay hints for the current line
+        only_current_line = false,
+
+        -- whether to show parameter hints with the inlay hints or not
+        -- default: true
+        show_parameter_hints = true,
+
+        -- prefix for parameter hints
+        -- default: "<-"
+        parameter_hints_prefix = "<- ",
+
+        -- prefix for all the other hints (type, chaining)
+        -- default: "=>"
+        other_hints_prefix = "=> ",
+
+        -- whether to align to the length of the longest line in the file
+        max_len_align = false,
+
+        -- padding from the left if max_len_align is true
+        max_len_align_padding = 1,
+
+        -- whether to align to the extreme right or not
+        right_align = false,
+
+        -- padding from the right if right_align is true
+        right_align_padding = 7,
+
+        -- The color of the hints
+        highlight = "Comment",
       },
   },
 
   server = {
-    on_attach = on_attach,
+    -- on_attach = on_attach,
+    on_attach = function(client, bufnr)
+      require("settings/shared").on_attach(client, bufnr)
+      require("illuminate").on_attach(client)
+    end,
     capabilities = capabilities,
     settings = {
       ["rust-analyzer"] = {

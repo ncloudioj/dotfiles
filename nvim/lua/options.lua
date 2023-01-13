@@ -100,6 +100,7 @@ vim.api.nvim_exec(
     augroup JSMAutoCmd
       autocmd!
       autocmd BufNewFile,BufRead *.jsm set ft=javascript
+      autocmd BufNewFile,BufRead *.mjs set ft=javascript
     augroup END
   ]],
   false
