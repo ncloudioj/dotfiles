@@ -9,6 +9,17 @@ require("packer").startup(function()
   use {'dracula/vim', as = 'dracula'}
   use "easymotion/vim-easymotion"
   use "florentc/vim-tla"
+  use {
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-cmdline"
   use "hrsh7th/cmp-nvim-lsp"
