@@ -476,9 +476,9 @@ mason_lspconfig.setup({
 })
 mason_lspconfig.setup_handlers({
   function(server_name)
-    -- Skip rust_analyzer as we manually configure them.
+    -- Skip rust_analyzer and pyright as we manually configure them.
     -- Otherwise the following `setup()` would override our config.
-    if server_name ~= "rust_analyzer" then
+    if server_name ~= "rust_analyzer" or server_name ~= "pyright" then
       require("lspconfig")[server_name].setup({
         on_attach = function(client, bufnr)
           require("settings/shared").on_attach(client, bufnr)
@@ -602,6 +602,27 @@ nvim_lsp.sumneko_lua.setup {
       },
     },
   },
+}
+
+-- LSP: pyright
+nvim_lsp.pyright.setup {
+  on_attach = function(client, bufnr)
+    require("settings/shared").on_attach(client, bufnr)
+    require("illuminate").on_attach(client)
+  end,
+  capabilities = capabilities,
+  settings = {
+    pyright = {},
+    python = {
+      analysis = {
+        autoImportCompletion = true,
+        autoSearchPaths = true,
+        diagnosticMode = 'openFilesOnly',
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = 'off' -- off|basic|strict
+      }
+    }
+  }
 }
 
 -- LSP: Haskell
