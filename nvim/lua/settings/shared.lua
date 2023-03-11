@@ -1,6 +1,6 @@
-local export = {}
+local M = {}
 
-function export.on_attach(_, bufnr)
+function M.on_attach(_, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -83,4 +83,4 @@ function export.on_attach(_, bufnr)
   -- end
 end
 
-return export
+return M

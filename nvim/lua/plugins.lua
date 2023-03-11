@@ -6,6 +6,7 @@ require("packer").startup(function()
   use "Raimondi/delimitMate"
   use "airblade/vim-gitgutter"
   use "christoomey/vim-tmux-navigator"
+  use { "catppuccin/nvim", as = "catppuccin" }
   use {'dracula/vim', as = 'dracula'}
   use "easymotion/vim-easymotion"
   use "florentc/vim-tla"
@@ -481,7 +482,7 @@ local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
   ensure_installed = {
     "bashls", "clangd", "eslint", "gopls", "hls", "jsonls", "marksman",
-    "pyright", "rust_analyzer", "sumneko_lua", "terraformls", "texlab",
+    "pyright", "rust_analyzer", "lua_ls", "terraformls", "texlab",
     "tflint", "tsserver", "yamlls"
   }
 })
@@ -589,7 +590,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
   settings = {
     Lua = {
