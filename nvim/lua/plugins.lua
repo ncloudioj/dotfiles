@@ -26,6 +26,7 @@ require("packer").startup(function()
   use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-path"
   use "hrsh7th/nvim-cmp"
+  use "jose-elias-alvarez/null-ls.nvim"
   use "joshdick/onedark.vim"
   use "junegunn/fzf"
   use "junegunn/fzf.vim"
@@ -197,15 +198,6 @@ vim.api.nvim_exec(
 )
 vim.api.nvim_set_keymap("n", "<leader>md", ":InstantMarkdownPreview<CR>", opt_silent)
 
--- Vim-gutentags
-vim.api.nvim_exec(
-  [[
-    let g:gutentags_cache_dir = '~/.tags_cache'
-    let g:gutentags_ctags_exclude = ['*/node_modules/*', '*/mozilla-central/*']
-  ]],
-  false
-)
-
 -- Telescope
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "book"} } }
 require('telescope').load_extension('fzf')
@@ -292,6 +284,15 @@ require("bufferline").setup {
 
 -- Nvim-tree.lua
 require"nvim-tree".setup {
+   disable_netrw = false,
+   hijack_netrw = true,
+   open_on_tab = false,
+   hijack_cursor = false,
+   update_cwd = true,
+   update_focused_file = {
+      enable = true,
+      update_cwd = false,
+   },
    diagnostics = {
       enable = false,
       icons = {
@@ -304,16 +305,6 @@ require"nvim-tree".setup {
    filters = {
       dotfiles = false,
       custom = {},
-   },
-   disable_netrw = true,
-   hijack_netrw = true,
-   ignore_ft_on_setup = { "dashboard" },
-   open_on_tab = false,
-   hijack_cursor = true,
-   update_cwd = true,
-   update_focused_file = {
-      enable = true,
-      update_cwd = false,
    },
    view = {
       side = "left",
@@ -334,10 +325,13 @@ require"nvim-tree".setup {
          folder = true,
          folder_arrow = true,
          git = true,
+         modified = true,
        },
        glyphs = {
          default = "",
          symlink = "",
+         bookmark = "",
+         modified = "●",
          folder = {
            arrow_closed = "",
            arrow_open = "",
@@ -360,11 +354,6 @@ require"nvim-tree".setup {
        },
      },
      special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
-   },
-   actions = {
-     open_file = {
-       quit_on_open = false,
-     },
    },
 }
 
@@ -499,6 +488,20 @@ mason_lspconfig.setup_handlers({
       })
     end
   end
+})
+
+-- Null-ls
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.code_actions.eslint,
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.diagnostics.flake8,
+    null_ls.builtins.diagnostics.mypy,
+    null_ls.builtins.completion.spell,
+  },
 })
 
 -- LSP settings
