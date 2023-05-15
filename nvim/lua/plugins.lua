@@ -43,6 +43,7 @@ require("packer").startup(function()
   use("preservim/nerdcommenter")
   use("RRethy/vim-illuminate")
   use("rafamadriz/friendly-snippets")
+  use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
   use("ryanoasis/vim-devicons")
   use("saadparwaiz1/cmp_luasnip")
   use("simrat39/rust-tools.nvim")
@@ -71,7 +72,8 @@ require("packer").startup(function()
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use({
     "nvim-telescope/telescope-fzf-native.nvim",
-    run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    run =
+    "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
   })
   use({
     "nvim-telescope/telescope.nvim",
@@ -248,7 +250,7 @@ require("bufferline").setup({
     buffer_close_icon = "",
     close_command = "bdelete! %d",
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-    left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+    left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     modified_icon = "",
     -- close_icon = "%@NvChad_bufferline_quitvim@%X",
     close_icon = "",
@@ -474,9 +476,7 @@ mason_lspconfig.setup({
     "bashls",
     "clangd",
     "eslint",
-    "gopls",
     "hls",
-    "jsonls",
     "marksman",
     "pyright",
     "rust_analyzer",
@@ -503,6 +503,25 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
+-- Nvimdap, Nvimdapui
+require("dapui").setup()
+
+local dap, dapui = require("dap"), require("dapui")
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")
+vim.keymap.set("n", "<Leader>dx", ":DapTerminate<CR>")
+vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>")
+
 -- Null-ls
 local null_ls = require("null-ls")
 
@@ -522,8 +541,18 @@ null_ls.setup({
 local nvim_lsp = require("lspconfig")
 
 -- Rust-tools
+local rtl = require("rust-tools")
+
+local mason_registry = require("mason-registry")
+local codelldb = mason_registry.get_package("codelldb")
+local extension_path = codelldb:get_install_path() .. "/extension/"
+local codelldb_path = extension_path .. "adapter/codelldb"
+local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
 
 local opts = {
+  dap = {
+    adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+  },
   tools = {
     autoSetHints = true,
     inlay_hints = {
@@ -561,6 +590,9 @@ local opts = {
       -- The color of the hints
       highlight = "Comment",
     },
+    hover_actions = {
+      auto_focus = true,
+    },
   },
 
   server = {
@@ -568,6 +600,10 @@ local opts = {
     on_attach = function(client, bufnr)
       require("settings/shared").on_attach(client, bufnr)
       require("illuminate").on_attach(client)
+      -- Hover actions
+      vim.keymap.set("n", "<Leader>k", rtl.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rtl.code_action_group.code_action_group, { buffer = bufnr })
     end,
     capabilities = capabilities,
     settings = {
@@ -587,7 +623,7 @@ local opts = {
   },
 }
 
-require("rust-tools").setup(opts)
+rtl.setup(opts)
 
 -- LSP: Lua
 local USER = vim.fn.expand("$USER")
