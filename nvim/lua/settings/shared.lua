@@ -39,4 +39,11 @@ function M.on_attach(_, bufnr)
   buf_set_keymap('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 end
 
+
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+M.capabilities = capabilities
+
 return M
