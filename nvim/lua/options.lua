@@ -75,16 +75,6 @@ vim.o.updatetime = 300
 -- Always show signcolumns
 vim.wo.signcolumn = "yes"
 
---Set colorscheme (order is important here)
--- vim.o.termguicolors = true
--- vim.g.onedark_terminal_italics = 2
--- vim.g.dracula_colorterm = 1
--- vim.g.dracula_bold = 1
--- vim.g.dracula_italic = 1
--- vim.g.dracula_underline = 1
--- vim.cmd [[colorscheme dracula]]
-vim.cmd [[colorscheme catppuccin]]
-
 --Remap space as leader key
 vim.api.nvim_set_keymap("n", "<Space>", "", { noremap = true, silent = true })
 vim.g.mapleader = " "

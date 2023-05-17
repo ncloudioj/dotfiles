@@ -80,6 +80,8 @@ window:
   # Set this to `None` to use the default theme variant.
   gtk_theme_variant: None
 
+  option_as_alt: Both
+
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -99,25 +101,28 @@ font:
     #   - (Linux) monospace
     #   - (Windows) Consolas
   normal:
+    # family: JetBrainsMono Nerd Font Mono
     family: Hack Nerd Font Mono
     # family: DejaVuSansMono Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    #style: Regular
+    style: Regular
 
   # Bold font face
   bold:
-    family: Menlo
+    # family: JetBrainsMono Nerd Font Mono
+    family: Hack Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Bold
 
   # Italic font face
   italic:
-    family: Menlo
+    # family: JetBrainsMono Nerd Font Mono
+    family: Hack Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    style: Italic
 
   # Point size
-  size: 12.0
+  size: 13.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -132,22 +137,6 @@ font:
     x: 0
     y: 0
 
-  # Thin stroke font rendering (macOS only)
-  #
-  # Thin strokes are suitable for retina displays, but for non-retina screens
-  # it is recommended to set `use_thin_strokes` to `false`
-  #
-  # macOS >= 10.14.x:
-  #
-  # If the font quality on non-retina display looks bad then set
-  # `use_thin_strokes` to `true` and enable font smoothing by running the
-  # following command:
-  #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
-  #
-  # This is a global setting and will require a log out or restart to take
-  # effect.
-  use_thin_strokes: true
-
 # Display the time it takes to redraw each frame.
 debug.render_timer: false
 
@@ -159,7 +148,8 @@ draw_bold_text_with_bright_colors: true
 
 # Colors (Gruvbox dark)
 import:
-  - ~/.config/alacritty/dracula.yml
+  # - ~/.config/alacritty/dracula.yml
+  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
 
   # Indexed Colors
   #
@@ -231,10 +221,10 @@ live_config_reload: true
 #   - (macOS) /bin/bash --login
 #   - (Linux) user login shell
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
+# shell:
+ # program: "/opt/homebrew/bin/zsh"
+ # args:
+   # - --login
 
 # Startup directory
 #

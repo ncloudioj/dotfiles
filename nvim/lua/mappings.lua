@@ -15,12 +15,6 @@ vim.api.nvim_set_keymap("n", "<F2>", [[:nohl<CR>]], opts)
 vim.api.nvim_set_keymap("", "<F3>", [[<cmd>NvimTreeToggle<CR>]], opts)
 vim.api.nvim_set_keymap("", "<F4>", [[<cmd>TagbarToggle<CR>]], opts)
 
--- Navigate windows
-vim.api.nvim_set_keymap("", "<C-h>", "<C-W>h", opts)
-vim.api.nvim_set_keymap("", "<C-j>", "<C-W>j", opts)
-vim.api.nvim_set_keymap("", "<C-k>", "<C-W>k", opts)
-vim.api.nvim_set_keymap("", "<C-l>", "<C-W>l", opts)
-
 -- Yank and paste
 vim.api.nvim_set_keymap("v", "<leader>yy", [["*y]], opts)
 vim.api.nvim_set_keymap("n", "<leader>pp", [["*p]], opts)
@@ -34,10 +28,10 @@ vim.api.nvim_set_keymap("x", ">", ">gv", opts)
 vim.api.nvim_set_keymap("x", "<", "<gv", opts)
 
 -- Move lines up and down in blocks
-vim.api.nvim_set_keymap("i", "<C-M-j>", [[<ESC>:m .+1<CR>=gi]], opts)
-vim.api.nvim_set_keymap("i", "<C-M-k>", [[<ESC>:m .-2<CR>=gi]], opts)
-vim.api.nvim_set_keymap("v", "<C-M-j>", [[:m '>+1<CR>gv=gv]], opts)
-vim.api.nvim_set_keymap("v", "<C-M-k>", [[:m '<-2<CR>gv=gv]], opts)
+vim.api.nvim_set_keymap("v", "<C-M-j>", [[<ESC>:m .+1<CR>=gi]], opts)
+vim.api.nvim_set_keymap("v", "<C-M-k>", [[<ESC>:m .-2<CR>=gi]], opts)
+vim.api.nvim_set_keymap("i", "<C-M-j>", [[:m '>+1<CR>gv=gv]], opts)
+vim.api.nvim_set_keymap("i", "<C-M-k>", [[:m '<-2<CR>gv=gv]], opts)
 
 -- Speed up the C-like curly bracket inserts
 vim.api.nvim_set_keymap("i", "<C-c>", [[<CR><ESC>O]], opts)
