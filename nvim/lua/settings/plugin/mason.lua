@@ -15,7 +15,6 @@ mason_lspconfig.setup({
     "texlab",
     "tflint",
     "tsserver",
-    "yamlls",
   },
 })
 mason_lspconfig.setup_handlers({

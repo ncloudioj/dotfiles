@@ -13,6 +13,7 @@ vim.api.nvim_exec(
       \  'rust': ['analyzer'],
       \  'haskell': ['hlint'],
       \  'sh': ['shellcheck'],
+      \  'yaml': [],
       \ }
     let g:ale_fixers = {
       \  'python': ['black', 'autopep8', 'isort'],

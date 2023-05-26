@@ -26,7 +26,11 @@ local plugins = {
     lazy = false,
     priority = 1000,
     config = function()
-      require("tmux").setup()
+      require("tmux").setup({
+        copy_sync = {
+          enable = false,
+        },
+      })
     end
   },
   {
