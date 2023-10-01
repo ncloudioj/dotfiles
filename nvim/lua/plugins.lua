@@ -66,7 +66,7 @@ local plugins = {
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-path",
   "hrsh7th/nvim-cmp",
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   "joshdick/onedark.vim",
   "junegunn/fzf",
   "junegunn/fzf.vim",
