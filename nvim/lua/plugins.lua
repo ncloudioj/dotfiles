@@ -123,7 +123,7 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
-    version = "0.1.1",
+    version = "0.1.4",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 }
