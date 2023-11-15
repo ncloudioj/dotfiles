@@ -78,6 +78,7 @@ local plugins = {
   "morhetz/gruvbox",
   "nvim-lua/plenary.nvim",
   "nvim-lua/popup.nvim",
+  "nvim-lualine/lualine.nvim",
   "onsails/lspkind-nvim",
   "preservim/vim-markdown",
   "preservim/nerdcommenter",
@@ -96,8 +97,6 @@ local plugins = {
   "tpope/vim-endwise",
   "tpope/vim-fugitive",
   "tpope/vim-surround",
-  "vim-airline/vim-airline",
-  "vim-airline/vim-airline-themes",
   "w0rp/ale",
   {
     "williamboman/mason.nvim",
