@@ -73,7 +73,11 @@ local plugins = {
   "nvim-tree/nvim-web-devicons",
   "lewis6991/gitsigns.nvim",
   "lervag/vimtex",
-  "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+  },
   "mfussenegger/nvim-dap",
   "morhetz/gruvbox",
   "nvim-lua/plenary.nvim",
