@@ -108,6 +108,15 @@ local plugins = {
   "ryanoasis/vim-devicons",
   "saadparwaiz1/cmp_luasnip",
   "simrat39/rust-tools.nvim",
+  {
+    "stevearc/aerial.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons",
+    },
+  },
   "suan/vim-instant-markdown",
   "terryma/vim-multiple-cursors",
   "tpope/vim-commentary",

@@ -3,6 +3,7 @@ require("plugins")
 require("mappings")
 
 require("settings.plugin.ale")
+require("settings.plugin.aerial")
 require("settings.plugin.bufferline")
 require("settings.plugin.dap")
 require("settings.plugin.easymotion")
