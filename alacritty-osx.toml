@@ -1,5 +1,5 @@
 import = [
-  "/Users/njiang/.config/alacritty/catppuccin-mocha.yml"
+  "/Users/njiang/.config/alacritty/catppuccin-macchiato.toml"
 ]
 live_config_reload = true
 working_directory = "None"
@@ -35,7 +35,7 @@ family = "Hack Nerd Font Mono"
 style = "Italic"
 
 [font.normal]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.offset]
