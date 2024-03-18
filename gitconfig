@@ -1,6 +1,7 @@
 [core]
 	editor = vim
 	excludesfile = /Users/nan/.gitignore_global
+  fsmonitor = true
 [merge]
 	tool = vimdiff
 [alias]
