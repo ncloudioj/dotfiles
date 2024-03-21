@@ -19,7 +19,6 @@ vim.api.nvim_exec(
       \  'python': ['black', 'autopep8', 'isort'],
       \  'javascript': ['prettier', 'eslint']
       \ }
-    let g:airline#extensions#ale#enabled = 1
   ]],
   false
 )

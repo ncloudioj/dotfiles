@@ -42,6 +42,7 @@ local plugins = {
       vim.cmd([[colorscheme catppuccin-macchiato]])
     end,
   },
+  "dense-analysis/ale",
   {
     "dracula/vim",
     name = "dracula",
@@ -74,6 +75,10 @@ local plugins = {
       -- refer to the configuration section below
     }
   },
+  {
+    "folke/neodev.nvim",
+    opts = {}
+  },
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-cmdline",
   "hrsh7th/cmp-nvim-lsp",
@@ -92,6 +97,11 @@ local plugins = {
     opts = {},
   },
   "mfussenegger/nvim-dap",
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^4", -- Recommended
+    ft = { "rust" },
+  },
   "morhetz/gruvbox",
   "nvim-lua/plenary.nvim",
   "nvim-lua/popup.nvim",
@@ -103,11 +113,10 @@ local plugins = {
   "rafamadriz/friendly-snippets",
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap" },
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
   },
   "ryanoasis/vim-devicons",
   "saadparwaiz1/cmp_luasnip",
-  "simrat39/rust-tools.nvim",
   {
     "stevearc/aerial.nvim",
     opts = {},
@@ -123,7 +132,6 @@ local plugins = {
   "tpope/vim-endwise",
   "tpope/vim-fugitive",
   "tpope/vim-surround",
-  "w0rp/ale",
   {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",

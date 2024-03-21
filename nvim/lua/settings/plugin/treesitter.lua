@@ -1,6 +1,6 @@
 -- TreeSitter
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "bash", "c", "haskell", "json", "latex", "lua", "python", "rust", "toml", "yaml" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "bash", "c", "haskell", "latex", "lua", "python", "rust", "toml", "yaml" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
     enable = true, -- false will disable the whole extension

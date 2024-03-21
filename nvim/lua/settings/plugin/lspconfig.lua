@@ -1,4 +1,11 @@
 local shared = require("settings.shared")
+
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require("neodev").setup({
+  -- add any options here, or leave empty to use the default settings
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+})
+
 local nvim_lsp = require("lspconfig")
 
 -- LSP: Lua
@@ -24,6 +31,9 @@ nvim_lsp.lua_ls.setup({
   cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
   settings = {
     Lua = {
+      completion = {
+        callSnippet = "Replace"
+      },
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
