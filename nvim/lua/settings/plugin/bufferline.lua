@@ -2,13 +2,12 @@ require("bufferline").setup({
   options = {
     numbers = "none",
     offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
-    buffer_close_icon = "",
+    buffer_close_icon = "",
     close_command = "bdelete! %d",
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     modified_icon = "",
-    -- close_icon = "%@NvChad_bufferline_quitvim@%X",
-    close_icon = "",
+    close_icon = '',
     show_close_icon = true,
     left_trunc_marker = "",
     right_trunc_marker = "",
@@ -43,4 +42,3 @@ require("bufferline").setup({
     tree_indent_marks = 1,
   },
 })
-

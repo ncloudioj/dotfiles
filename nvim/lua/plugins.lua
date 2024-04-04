@@ -79,6 +79,7 @@ local plugins = {
     "folke/neodev.nvim",
     opts = {}
   },
+  "gbprod/yanky.nvim",
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-cmdline",
   "hrsh7th/cmp-nvim-lsp",
