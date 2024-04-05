@@ -18,6 +18,8 @@ mason_lspconfig.setup({
   },
 })
 mason_lspconfig.setup_handlers({
+  -- To avoid config conflicts with rustaceanvim.
+  ["rust_analyzer"] = function() end,
   function(server_name)
     -- Skip rust_analyzer and pyright as we manually configure them.
     -- Otherwise the following `setup()` would override our config.
