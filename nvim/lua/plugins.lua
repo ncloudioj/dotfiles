@@ -155,7 +155,6 @@ local plugins = {
   },
   "suan/vim-instant-markdown",
   "terryma/vim-multiple-cursors",
-  "tpope/vim-commentary",
   "tpope/vim-endwise",
   "tpope/vim-fugitive",
   "tpope/vim-surround",
