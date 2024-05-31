@@ -49,18 +49,43 @@ local plugins = {
     lazy = false,
     priority = 1000,
   },
-  "easymotion/vim-easymotion",
+  "motion/vim-easymotion",
   "florentc/vim-tla",
   {
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("trouble").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      })
-    end,
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
   },
   {
     "folke/which-key.nvim",
@@ -72,7 +97,9 @@ local plugins = {
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      --[[
+         [ -- refer to the configuration section below
+         ]]
     }
   },
   {
@@ -109,7 +136,6 @@ local plugins = {
   "nvim-lualine/lualine.nvim",
   "onsails/lspkind-nvim",
   "preservim/vim-markdown",
-  "preservim/nerdcommenter",
   "RRethy/vim-illuminate",
   "rafamadriz/friendly-snippets",
   {
@@ -145,8 +171,8 @@ local plugins = {
     },
   },
   {
-    "akinsho/bufferline.nvim",
-    version = "v3.*",
+   "akinsho/bufferline.nvim",
+    -- version = "v3.*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
