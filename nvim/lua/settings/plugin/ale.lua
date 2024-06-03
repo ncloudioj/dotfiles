@@ -1,4 +1,4 @@
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
     let g:ale_open_list = 0
     let g:ale_lint_on_text_changed = 'never'
@@ -20,5 +20,5 @@ vim.api.nvim_exec(
       \  'javascript': ['prettier', 'eslint']
       \ }
   ]],
-  false
+  { output = false }
 )

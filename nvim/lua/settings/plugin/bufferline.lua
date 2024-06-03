@@ -5,9 +5,9 @@ require("bufferline").setup({
     buffer_close_icon = "",
     close_command = "bdelete! %d",
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-    left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
+    left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
     modified_icon = "",
-    close_icon = '',
+    close_icon = "",
     show_close_icon = true,
     left_trunc_marker = "",
     right_trunc_marker = "",

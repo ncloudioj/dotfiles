@@ -1,4 +1,4 @@
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
     " Use Zathura as the VimTeX PDF viewer
     let g:vimtex_view_method = 'zathura'
@@ -16,5 +16,5 @@ vim.api.nvim_exec(
         \ ],
         \}
   ]],
-  false
+  { output = false }
 )

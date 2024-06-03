@@ -18,8 +18,8 @@ local plugins = {
   "Raimondi/delimitMate",
   "airblade/vim-gitgutter",
   -- {
-    -- "christoomey/vim-tmux-navigator",
-    -- lazy = false,
+  -- "christoomey/vim-tmux-navigator",
+  -- lazy = false,
   -- },
   {
     "aserowy/tmux.nvim",
@@ -31,7 +31,7 @@ local plugins = {
           enable = false,
         },
       })
-    end
+    end,
   },
   {
     "catppuccin/nvim",
@@ -49,7 +49,6 @@ local plugins = {
     lazy = false,
     priority = 1000,
   },
-  "motion/vim-easymotion",
   "florentc/vim-tla",
   {
     "folke/trouble.nvim",
@@ -68,6 +67,11 @@ local plugins = {
         "<leader>cs",
         "<cmd>Trouble symbols toggle focus=false<cr>",
         desc = "Symbols (Trouble)",
+      },
+      {
+        "<F4>",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Show symbols on the right (Trouble)",
       },
       {
         "<leader>cl",
@@ -100,11 +104,11 @@ local plugins = {
       --[[
          [ -- refer to the configuration section below
          ]]
-    }
+    },
   },
   {
     "folke/neodev.nvim",
-    opts = {}
+    opts = {},
   },
   "gbprod/yanky.nvim",
   "hrsh7th/cmp-buffer",
@@ -144,15 +148,6 @@ local plugins = {
   },
   "ryanoasis/vim-devicons",
   "saadparwaiz1/cmp_luasnip",
-  {
-    "stevearc/aerial.nvim",
-    opts = {},
-    -- Optional dependencies
-    dependencies = {
-       "nvim-treesitter/nvim-treesitter",
-       "nvim-tree/nvim-web-devicons",
-    },
-  },
   "suan/vim-instant-markdown",
   "terryma/vim-multiple-cursors",
   "tpope/vim-endwise",
@@ -170,15 +165,14 @@ local plugins = {
     },
   },
   {
-   "akinsho/bufferline.nvim",
+    "akinsho/bufferline.nvim",
     -- version = "v3.*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    build =
-    "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
   },
   {
     "nvim-telescope/telescope.nvim",

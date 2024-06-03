@@ -2,8 +2,7 @@ local shared = require("settings.shared")
 
 vim.g.rustaceanvim = {
   -- Plugin configuration
-  tools = {
-  },
+  tools = {},
   -- LSP configuration
   server = {
     on_attach = function(client, bufnr)
@@ -13,11 +12,9 @@ vim.g.rustaceanvim = {
     end,
     default_settings = {
       -- rust-analyzer language server configuration
-      ['rust-analyzer'] = {
-      },
+      ["rust-analyzer"] = {},
     },
   },
   -- DAP configuration
-  dap = {
-  },
+  dap = {},
 }

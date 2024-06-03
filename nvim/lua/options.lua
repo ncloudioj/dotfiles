@@ -1,3 +1,4 @@
+-- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -33,16 +34,16 @@ vim.o.showmatch = true
 vim.o.breakindent = true
 
 -- Clipboard
-vim.cmd [[set clipboard+=unnamedplus]]
+vim.cmd([[set clipboard+=unnamedplus]])
 
 --Save undo history
-vim.cmd [[set undofile]]
+vim.cmd([[set undofile]])
 
 -- Language
-vim.cmd [[language en_US.utf-8]]
+vim.cmd([[language en_US.utf-8]])
 
 -- De-clutter mess
-vim.cmd [[set shortmess+=c]]
+vim.cmd([[set shortmess+=c]])
 
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -63,7 +64,7 @@ vim.bo.expandtab = true
 -- Enhanced command line
 vim.o.wildmenu = true
 vim.o.background = "dark"
-vim.cmd [[set nocursorline]]
+vim.cmd([[set nocursorline]])
 
 -- Window spliting
 vim.o.splitright = true
@@ -81,18 +82,18 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Special handling on various Filetypes
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
     augroup MakeFileAutoCmd
       autocmd!
       autocmd BufRead,BufNewFile Makefile* set noexpandtab
     augroup END
   ]],
-  false
+  { output = false }
 )
 
 -- Treat Mozilla jsm as JS
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
     augroup JSMAutoCmd
       autocmd!
@@ -100,16 +101,16 @@ vim.api.nvim_exec(
       autocmd BufNewFile,BufRead *.mjs set ft=javascript
     augroup END
   ]],
-  false
+  { output = false }
 )
 
 -- Highlight on yank
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
   augroup YankHighlight
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
   ]],
-  false
+  { output = false }
 )
