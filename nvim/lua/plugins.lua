@@ -146,6 +146,10 @@ local plugins = {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
   },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+  },
   "ryanoasis/vim-devicons",
   "saadparwaiz1/cmp_luasnip",
   "suan/vim-instant-markdown",
