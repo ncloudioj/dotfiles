@@ -15,32 +15,32 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugins
 local plugins = {
   "L3MON4D3/LuaSnip",
-  "Raimondi/delimitMate",
   "airblade/vim-gitgutter",
-  -- {
-  -- "christoomey/vim-tmux-navigator",
-  -- lazy = false,
-  -- },
-  {
-    "aserowy/tmux.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("tmux").setup({
-        copy_sync = {
-          enable = false,
-        },
-      })
-    end,
-  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme catppuccin-macchiato]])
+      vim.cmd([[colorscheme catppuccin-mocha]])
     end,
+  },
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
   "dense-analysis/ale",
   {
@@ -48,6 +48,10 @@ local plugins = {
     name = "dracula",
     lazy = false,
     priority = 1000,
+  },
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
   },
   "florentc/vim-tla",
   {
@@ -111,11 +115,18 @@ local plugins = {
     opts = {},
   },
   "gbprod/yanky.nvim",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-path",
-  "hrsh7th/nvim-cmp",
+  {
+    "hrsh7th/nvim-cmp",
+    -- load cmp on InsertEnter
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "saadparwaiz1/cmp_luasnip",
+    },
+  },
   "nvimtools/none-ls.nvim",
   "joshdick/onedark.vim",
   "junegunn/fzf",
@@ -151,7 +162,6 @@ local plugins = {
     event = "VeryLazy",
   },
   "ryanoasis/vim-devicons",
-  "saadparwaiz1/cmp_luasnip",
   "suan/vim-instant-markdown",
   "terryma/vim-multiple-cursors",
   "tpope/vim-endwise",
@@ -162,6 +172,7 @@ local plugins = {
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
   },
+  "windwp/nvim-autopairs",
   {
     "kyazdani42/nvim-tree.lua",
     dependencies = {
