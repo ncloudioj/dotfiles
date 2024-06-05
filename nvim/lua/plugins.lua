@@ -42,7 +42,6 @@ local plugins = {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-  "dense-analysis/ale",
   {
     "dracula/vim",
     name = "dracula",

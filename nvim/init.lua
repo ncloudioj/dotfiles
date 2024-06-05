@@ -2,7 +2,6 @@ require("options")
 require("plugins")
 require("mappings")
 
-require("settings.plugin.ale")
 require("settings.plugin.bufferline")
 require("settings.plugin.dap")
 require("settings.plugin.fzf")
