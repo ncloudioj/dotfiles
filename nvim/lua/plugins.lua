@@ -15,7 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugins
 local plugins = {
   "L3MON4D3/LuaSnip",
-  "airblade/vim-gitgutter",
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -45,8 +44,8 @@ local plugins = {
   {
     "dracula/vim",
     name = "dracula",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
+    event = "VeryLazy",
   },
   {
     "dstein64/vim-startuptime",
@@ -127,7 +126,6 @@ local plugins = {
     },
   },
   "nvimtools/none-ls.nvim",
-  "joshdick/onedark.vim",
   "junegunn/fzf",
   "junegunn/fzf.vim",
   "nvim-tree/nvim-web-devicons",
