@@ -144,7 +144,6 @@ local plugins = {
   },
   "morhetz/gruvbox",
   "nvim-lua/plenary.nvim",
-  "nvim-lua/popup.nvim",
   "nvim-lualine/lualine.nvim",
   "onsails/lspkind-nvim",
   "preservim/vim-markdown",
@@ -163,7 +162,6 @@ local plugins = {
   "terryma/vim-multiple-cursors",
   "tpope/vim-endwise",
   "tpope/vim-fugitive",
-  "tpope/vim-surround",
   {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -188,7 +186,7 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
-    version = "0.1.4",
+    version = "0.1.6",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 }
