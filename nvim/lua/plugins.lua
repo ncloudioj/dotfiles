@@ -139,8 +139,8 @@ local plugins = {
   "mfussenegger/nvim-dap",
   {
     "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
-    ft = { "rust" },
+    version = "^5", -- Recommended
+    lazy = false,
   },
   "morhetz/gruvbox",
   "nvim-lua/plenary.nvim",

@@ -28,10 +28,10 @@ vim.api.nvim_set_keymap("x", ">", ">gv", opts)
 vim.api.nvim_set_keymap("x", "<", "<gv", opts)
 
 -- Move lines up and down in blocks
-vim.api.nvim_set_keymap("v", "<C-M-j>", [[<ESC>:m .+1<CR>=gi]], opts)
-vim.api.nvim_set_keymap("v", "<C-M-k>", [[<ESC>:m .-2<CR>=gi]], opts)
-vim.api.nvim_set_keymap("i", "<C-M-j>", [[:m '>+1<CR>gv=gv]], opts)
-vim.api.nvim_set_keymap("i", "<C-M-k>", [[:m '<-2<CR>gv=gv]], opts)
+vim.api.nvim_set_keymap("i", "<A-j>", [[<ESC>:m .+1<CR>==gi]], opts)
+vim.api.nvim_set_keymap("i", "<A-k>", [[<ESC>:m .-2<CR>==gi]], opts)
+vim.api.nvim_set_keymap("v", "<A-j>", [[:m '>+1<CR>gv=gv]], opts)
+vim.api.nvim_set_keymap("v", "<A-k>", [[:m '<-2<CR>gv=gv]], opts)
 
 -- Speed up the C-like curly bracket inserts
 vim.api.nvim_set_keymap("i", "<C-c>", [[<CR><ESC>O]], opts)
