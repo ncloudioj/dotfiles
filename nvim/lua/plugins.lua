@@ -96,22 +96,24 @@ local plugins = {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-    end,
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      --[[
-         [ -- refer to the configuration section below
-         ]]
+      delay = function(ctx)
+        return ctx.plugin and 0 or 200
+      end,
     },
   },
   {
-    "folke/neodev.nvim",
-    opts = {},
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
   },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
   "gbprod/yanky.nvim",
   {
     "hrsh7th/nvim-cmp",
