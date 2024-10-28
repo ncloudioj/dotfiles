@@ -5,6 +5,8 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.goimports_reviser,
+    null_ls.builtins.formatting.golines,
     null_ls.builtins.diagnostics.mypy,
     null_ls.builtins.completion.spell,
   },

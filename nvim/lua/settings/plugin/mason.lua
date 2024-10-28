@@ -14,7 +14,7 @@ mason_lspconfig.setup({
     "terraformls",
     "texlab",
     "tflint",
-    "tsserver",
+    "gopls",
   },
 })
 mason_lspconfig.setup_handlers({

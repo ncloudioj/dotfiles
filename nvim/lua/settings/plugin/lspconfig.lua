@@ -1,6 +1,7 @@
 local shared = require("settings.shared")
 
 local nvim_lsp = require("lspconfig")
+local util = require("lspconfig.util")
 
 -- LSP: Lua
 local USER = vim.fn.expand("$USER")
@@ -67,6 +68,26 @@ nvim_lsp.pyright.setup({
         useLibraryCodeForTypes = true,
         typeCheckingMode = "off", -- off|basic|strict
       },
+    },
+  },
+})
+
+-- LSP: gopls
+nvim_lsp.gopls.setup({
+  on_attach = shared.on_attach,
+  capabilities = shared.capabilities,
+  cmd = {"gopls"},
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      completeUnimported = true,
+      usePlaceholders = true,
+      staticcheck = true,
+      -- gofumpt = true,
     },
   },
 })
