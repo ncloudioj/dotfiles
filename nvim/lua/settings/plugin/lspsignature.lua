@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       bind = true,
       handler_opts = { border = "rounded" },
       max_width = 80,
+      hint_prefix = "🦊 "
     }, bufnr)
   end,
 })

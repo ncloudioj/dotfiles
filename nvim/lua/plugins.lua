@@ -14,7 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugins
 local plugins = {
-  "L3MON4D3/LuaSnip",
+  {
+    "L3MON4D3/LuaSnip",
+    tag = "v2.3.0",
+  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -158,6 +161,15 @@ local plugins = {
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
+  },
+  {
+    "ray-x/go.nvim",
+    config = function()
+      require("go").setup()
+    end,
+    event = {"CmdlineEnter"},
+    ft = {"go", 'gomod'},
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
   "ryanoasis/vim-devicons",
   "suan/vim-instant-markdown",
