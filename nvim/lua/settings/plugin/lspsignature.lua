@@ -7,9 +7,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
     require("lsp_signature").on_attach({
       bind = true,
+      doc_lines = 0,
       handler_opts = { border = "rounded" },
       max_width = 80,
-      hint_prefix = "🦊 "
+      hint_prefix = "🦊 ",
+      floating_window = false,
     }, bufnr)
   end,
 })
