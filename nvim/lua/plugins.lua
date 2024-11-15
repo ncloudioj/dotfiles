@@ -134,6 +134,7 @@ local plugins = {
   "junegunn/fzf",
   "junegunn/fzf.vim",
   "nvim-tree/nvim-web-devicons",
+  "leoluz/nvim-dap-go",
   "lewis6991/gitsigns.nvim",
   "lervag/vimtex",
   {
