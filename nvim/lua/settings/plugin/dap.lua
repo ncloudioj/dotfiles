@@ -17,7 +17,8 @@ end
 
 vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")
 vim.keymap.set("n", "<Leader>dx", ":DapTerminate<CR>")
-vim.keymap.set("n", "<F9>", ":DapNew<CR>")
+vim.keymap.set("n", "<F8>", ":DapNew<CR>")
+vim.keymap.set("n", "<F9>", ":DapContinue<CR>")
 vim.keymap.set("n", "<F10>", ":DapStepOver<CR>")
 vim.keymap.set("n", "<F11>", ":DapStepInto<CR>")
 vim.keymap.set("n", "<F12>", ":DapStepOut<CR>")
