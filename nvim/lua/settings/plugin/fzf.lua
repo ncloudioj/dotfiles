@@ -1,3 +1,12 @@
+require("fzf-lua").setup({
+  previewers = {
+    builtin = {
+      -- Disable syntax highlighting for large files (100KB) 
+      syntax_limit_b = 1024 * 100,
+    },
+  },
+})
+
 local opt_silent_noremap = { silent = true, noremap = true }
 
 vim.api.nvim_set_keymap("n", "bb", "<cmd>FzfLua buffers<CR>", opt_silent_noremap)
