@@ -131,8 +131,11 @@ local plugins = {
     },
   },
   "nvimtools/none-ls.nvim",
-  "junegunn/fzf",
-  "junegunn/fzf.vim",
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
   "nvim-tree/nvim-web-devicons",
   "leoluz/nvim-dap-go",
   "lewis6991/gitsigns.nvim",
@@ -152,6 +155,15 @@ local plugins = {
   "nvim-lua/plenary.nvim",
   "nvim-lualine/lualine.nvim",
   "onsails/lspkind-nvim",
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,      -- Recommended
+    -- ft = "markdown" -- If you decide to lazy-load anyway
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons"
+    }
+  },
   "preservim/vim-markdown",
   "RRethy/vim-illuminate",
   "rafamadriz/friendly-snippets",
@@ -195,10 +207,6 @@ local plugins = {
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-  },
   {
     "nvim-telescope/telescope.nvim",
     version = "0.1.6",
