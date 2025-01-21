@@ -26,7 +26,7 @@ mason_lspconfig.setup_handlers({
     if server_name ~= "rust_analyzer" or server_name ~= "pyright" then
       require("lspconfig")[server_name].setup({
         on_attach = function(client, bufnr)
-          require("settings.shared").on_attach(client, bufnr)
+          require("config.shared").on_attach(client, bufnr)
           require("illuminate").on_attach(client)
         end,
       })
