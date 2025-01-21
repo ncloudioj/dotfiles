@@ -17,9 +17,13 @@ require("nvim-tree").setup({
       error = "",
     },
   },
-  filters = {
-    dotfiles = false,
-    custom = {},
+  git = {
+    enable = true,
+    show_on_dirs = true,
+    show_on_open_dirs = true,
+    disable_for_dirs = {},
+    timeout = 30000,  -- need more time for large projects
+    cygwin_support = false,
   },
   view = {
     side = "left",
@@ -47,6 +51,7 @@ require("nvim-tree").setup({
         symlink = "",
         bookmark = "",
         modified = "●",
+        hidden = "󰜌",
         folder = {
           arrow_closed = "",
           arrow_open = "",

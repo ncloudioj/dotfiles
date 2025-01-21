@@ -1,4 +1,4 @@
-local shared = require("settings.shared")
+local shared = require("config.shared")
 
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")

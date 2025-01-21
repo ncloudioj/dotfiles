@@ -1,4 +1,4 @@
-local shared = require("settings.shared")
+local shared = require("config.shared")
 
 vim.g.rustaceanvim = {
   -- Plugin configuration

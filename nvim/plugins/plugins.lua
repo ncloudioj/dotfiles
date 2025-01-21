@@ -1,19 +1,4 @@
--- Install Lazy
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Plugins
-local plugins = {
+return {
   {
     "L3MON4D3/LuaSnip",
     tag = "v2.3.0",
@@ -213,7 +198,3 @@ local plugins = {
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 }
-
-local opt = {}
-
-require("lazy").setup(plugins, opt)
