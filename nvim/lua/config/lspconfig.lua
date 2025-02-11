@@ -51,16 +51,15 @@ nvim_lsp.lua_ls.setup({
   },
 })
 
--- LSP: pyright
-nvim_lsp.pyright.setup({
+-- LSP: basedpyright
+nvim_lsp.basedpyright.setup({
   on_attach = function(client, bufnr)
     shared.on_attach(client, bufnr)
     require("illuminate").on_attach(client)
   end,
   capabilities = shared.capabilities,
   settings = {
-    pyright = {},
-    python = {
+    basedpyright = {
       analysis = {
         autoImportCompletion = true,
         autoSearchPaths = true,
@@ -69,8 +68,29 @@ nvim_lsp.pyright.setup({
         typeCheckingMode = "off", -- off|basic|strict
       },
     },
-  },
+  }
 })
+
+-- LSP: pyright
+-- nvim_lsp.pyright.setup({
+--   on_attach = function(client, bufnr)
+--     shared.on_attach(client, bufnr)
+--     require("illuminate").on_attach(client)
+--   end,
+--   capabilities = shared.capabilities,
+--   settings = {
+--     pyright = {},
+--     python = {
+--       analysis = {
+--         autoImportCompletion = true,
+--         autoSearchPaths = true,
+--         diagnosticMode = "openFilesOnly",
+--         useLibraryCodeForTypes = true,
+--         typeCheckingMode = "off", -- off|basic|strict
+--       },
+--     },
+--   },
+-- })
 
 -- LSP: gopls
 nvim_lsp.gopls.setup({
