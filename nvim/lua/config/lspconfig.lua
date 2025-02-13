@@ -112,6 +112,16 @@ nvim_lsp.gopls.setup({
   },
 })
 
+-- LSP: zls
+nvim_lsp.zls.setup({
+  on_attach = shared.on_attach,
+  capabilities = shared.capabilities,
+  cmd = {"zls"},
+  settings = {
+    zls = {},
+  },
+})
+
 -- LSP: Haskell
 -- nvim_lsp.hls.setup {
 -- on_attach = on_attach,

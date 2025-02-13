@@ -15,6 +15,7 @@ mason_lspconfig.setup({
     "texlab",
     "tflint",
     "gopls",
+    "zls",
   },
 })
 mason_lspconfig.setup_handlers({
