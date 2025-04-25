@@ -2,6 +2,7 @@ require("options")
 require("config.lazy")
 require("mappings")
 
+-- Plugin configurations
 require("config.bufferline")
 require("config.dap")
 require("config.fzf")
