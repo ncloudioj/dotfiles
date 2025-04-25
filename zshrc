@@ -31,7 +31,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump brew osx git golang mix cargo docker kubectl \
+plugins=(autojump brew osx git golang jj cargo docker kubectl \
   mercurial emoji virtualenv poetry zsh-syntax-highlighting zsh-autosuggestions nan)
 source $ZSH/oh-my-zsh.sh
 
@@ -61,6 +61,3 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*" --glob "!.hg/*"'
-export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
-
-alias luamake=/home/nan/Projects/github/lua-language-server/3rd/luamake/luamake
