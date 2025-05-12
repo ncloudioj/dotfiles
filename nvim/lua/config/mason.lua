@@ -1,13 +1,16 @@
 require("mason").setup()
-
 local mason_lspconfig = require("mason-lspconfig")
+
 mason_lspconfig.setup({
+  automatic_enable = {
+    exclude = {'rust_analyzer', 'basedpyright'},
+  },
   ensure_installed = {
-    "basedpyright",
+    -- "basedpyright",
     "bashls",
     "clangd",
     "eslint",
-    "hls",
+    -- "hls",
     "marksman",
     "rust_analyzer",
     "lua_ls",
@@ -17,10 +20,6 @@ mason_lspconfig.setup({
     "gopls",
     "zls",
   },
-})
-mason_lspconfig.setup_handlers({
-  -- To avoid config conflicts with rustaceanvim.
-  ["rust_analyzer"] = function() end,
   function(server_name)
     -- Skip rust_analyzer and pyright as we manually configure them.
     -- Otherwise the following `setup()` would override our config.

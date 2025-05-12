@@ -169,6 +169,13 @@ return {
     ft = {"go", 'gomod'},
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
   "ryanoasis/vim-devicons",
   "suan/vim-instant-markdown",
   "terryma/vim-multiple-cursors",
