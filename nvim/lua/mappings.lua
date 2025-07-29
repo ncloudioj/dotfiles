@@ -34,4 +34,5 @@ vim.api.nvim_set_keymap("v", "<A-j>", [[:m '>+1<CR>gv=gv]], opts)
 vim.api.nvim_set_keymap("v", "<A-k>", [[:m '<-2<CR>gv=gv]], opts)
 
 -- Speed up the C-like curly bracket inserts
-vim.api.nvim_set_keymap("i", "<C-c>", [[<CR><ESC>O]], opts)
+vim.api.nvim_set_keymap("i", "<C-x>", [[<CR><ESC>O]], opts)
+vim.api.nvim_set_keymap("i", "<C-c>", [[<Esc>A;<Esc>2hi<CR><ESC>O]], opts)
