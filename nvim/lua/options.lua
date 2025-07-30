@@ -81,6 +81,9 @@ vim.api.nvim_set_keymap("n", "<Space>", "", { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+--Do not insert newline at the end of file
+vim.cmd([[set nofixendofline]])
+
 -- Special handling on various Filetypes
 vim.api.nvim_exec2(
   [[
