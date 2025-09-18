@@ -24,7 +24,7 @@ mason_lspconfig.setup({
     -- Skip rust_analyzer and pyright as we manually configure them.
     -- Otherwise the following `setup()` would override our config.
     if server_name ~= "rust_analyzer" or server_name ~= "basedpyright" then
-      require("lspconfig")[server_name].setup({
+      vim.lsp.config(server_name, {
         on_attach = function(client, bufnr)
           require("config.shared").on_attach(client, bufnr)
           require("illuminate").on_attach(client)

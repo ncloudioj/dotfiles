@@ -1,6 +1,5 @@
 local shared = require("config.shared")
 
-local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
 
 -- LSP: Lua
@@ -8,7 +7,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-nvim_lsp.lua_ls.setup({
+vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       completion = {
@@ -37,7 +36,7 @@ nvim_lsp.lua_ls.setup({
 })
 
 -- LSP: basedpyright
-nvim_lsp.basedpyright.setup({
+vim.lsp.config("basedpyright", {
   on_attach = function(client, bufnr)
     shared.on_attach(client, bufnr)
     require("illuminate").on_attach(client)
@@ -57,7 +56,7 @@ nvim_lsp.basedpyright.setup({
 })
 
 -- LSP: gopls
-nvim_lsp.gopls.setup({
+vim.lsp.config("gopls", {
   on_attach = shared.on_attach,
   capabilities = shared.capabilities,
   cmd = {"gopls"},
@@ -77,7 +76,7 @@ nvim_lsp.gopls.setup({
 })
 
 -- LSP: zls
-nvim_lsp.zls.setup({
+vim.lsp.config("zls", {
   on_attach = shared.on_attach,
   capabilities = shared.capabilities,
   cmd = {"zls"},
@@ -87,7 +86,7 @@ nvim_lsp.zls.setup({
 })
 
 -- LSP: Haskell
--- nvim_lsp.hls.setup {
+-- vim.lsp.config("hls", {
 -- on_attach = on_attach,
 -- root_dir = vim.loop.cwd,
 -- settings = {
