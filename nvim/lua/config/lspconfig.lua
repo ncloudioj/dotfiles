@@ -2,6 +2,26 @@ local shared = require("config.shared")
 
 local util = require("lspconfig.util")
 
+local lsps = {
+    "basedpyright",
+    "bashls",
+    "clangd",
+    "eslint",
+    "hls",
+    "marksman",
+    "rust_analyzer",
+    "lua_ls",
+    "terraformls",
+    "texlab",
+    "tflint",
+    "gopls",
+    "zls",
+}
+
+for _, lsp in ipairs(lsps) do
+  vim.lsp.enable(lsp)
+end
+
 -- LSP: Lua
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
