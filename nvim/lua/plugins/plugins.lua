@@ -122,7 +122,7 @@ return {
     opts = {},
   },
   "nvim-tree/nvim-web-devicons",
-  "leoluz/nvim-dap-go",
+  -- "leoluz/nvim-dap-go",
   "lewis6991/gitsigns.nvim",
   "lervag/vimtex",
   {
@@ -133,7 +133,7 @@ return {
   "mfussenegger/nvim-dap",
   {
     "mrcjkb/rustaceanvim",
-    version = "^6", -- Recommended
+    version = "^8", -- Recommended
     lazy = false,
   },
   "morhetz/gruvbox",
@@ -160,15 +160,15 @@ return {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
   },
-  {
-    "ray-x/go.nvim",
-    config = function()
-      require("go").setup()
-    end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  },
+  -- {
+  --   "ray-x/go.nvim",
+  --   config = function()
+  --     require("go").setup()
+  --   end,
+  --   event = {"CmdlineEnter"},
+  --   ft = {"go", 'gomod'},
+  --   build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+  -- },
   {
     'stevearc/oil.nvim',
     opts = {},
@@ -198,10 +198,10 @@ return {
     -- version = "v3.*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
   {
     "nvim-telescope/telescope.nvim",
-    version = "0.1.6",
+    version = "0.2.2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
