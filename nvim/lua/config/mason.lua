@@ -27,7 +27,6 @@ mason_lspconfig.setup({
       vim.lsp.config(server_name, {
         on_attach = function(client, bufnr)
           require("config.shared").on_attach(client, bufnr)
-          require("illuminate").on_attach(client)
         end,
       })
     end

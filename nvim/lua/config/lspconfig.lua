@@ -39,7 +39,6 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("basedpyright", {
   on_attach = function(client, bufnr)
     shared.on_attach(client, bufnr)
-    require("illuminate").on_attach(client)
   end,
   capabilities = shared.capabilities,
   settings = {
