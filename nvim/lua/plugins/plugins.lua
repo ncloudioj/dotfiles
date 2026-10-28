@@ -1,16 +1,27 @@
 return {
   {
     "L3MON4D3/LuaSnip",
-    tag = "v2.3.0",
+    tag = "v2.5.0",
   },
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = true,
+    -- priority = 1000,
+    config = function()
+      -- vim.cmd([[colorscheme catppuccin-mocha]])
+    end,
+  },
+  {
+    "sainnhe/gruvbox-material",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme catppuccin-mocha]])
-    end,
+      -- Optional: set contrast ('hard', 'medium', or 'soft')
+      vim.g.gruvbox_material_background = 'hard'
+      vim.g.gruvbox_material_better_performance = 1
+      vim.cmd.colorscheme('gruvbox-material')
+    end
   },
   {
     "christoomey/vim-tmux-navigator",
@@ -133,7 +144,7 @@ return {
   "mfussenegger/nvim-dap",
   {
     "mrcjkb/rustaceanvim",
-    version = "^8", -- Recommended
+    version = "^9", -- Recommended
     lazy = false,
   },
   "morhetz/gruvbox",
